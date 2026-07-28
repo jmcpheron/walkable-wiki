@@ -1,0 +1,43 @@
+{
+  "slug": "jimmy-pestos",
+  "name": "Jimmy Pesto's Pizzeria",
+  "wiki": {
+    "title": "Jimmy Pesto's Pizzeria",
+    "body": "The flashy Italian restaurant directly across Ocean Avenue from Bob's Burgers, run by Bob's self-appointed arch-rival **Jimmy Pesto**.\n\n## Notes\n- Home turf of Jimmy Jr., Andy, and Ollie Pesto\n- The Bob-versus-Jimmy feud drives episodes from the burger cook-off to the table-scoring wars\n- Known more for gimmicks and karaoke nights than for the actual food"
+  },
+  "exterior": {
+    "footprint": [8, 6, 5],
+    "color": "#b03a48",
+    "door": {
+      "id": "jimmy-pestos-front",
+      "position": [0, 0, 3.07],
+      "label": "Enter Jimmy Pesto's",
+      "target": { "scene": "jimmy-pestos", "spawn": "entry" }
+    }
+  },
+  "interior": {
+    "size": [10, 8, 3.5],
+    "color": "#d9c8a9",
+    "spawns": {
+      "entry": { "position": [0, 0, 2.2], "yaw": 0 }
+    },
+    "doors": [
+      {
+        "id": "jimmy-pestos-exit",
+        "position": [0, 0, 3.85],
+        "label": "Exit to street",
+        "target": { "scene": "street", "spawn": "door-jimmy-pestos" }
+      }
+    ],
+    "hotspots": [
+      {
+        "id": "menu-board",
+        "position": [-3.2, 1.5, -3.6],
+        "wiki": {
+          "title": "Menu Board",
+          "body": "A big glossy menu board — everything has a theme name and nothing is as good as it sounds.\n\nUnlike the hand-chalked **Burger of the Day** board across the street, Jimmy's menu never changes. Style over substance is kind of the whole point.\n\n## Trivia\n- Jimmy Pesto's serves 'authentic' Italian despite Jimmy being about as Italian as a mall food court\n- The dining room doubles as a karaoke stage after hours"
+        }
+      }
+    ]
+  }
+}
