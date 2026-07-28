@@ -5,6 +5,8 @@ import { hashFor, initialRouteFromHash, parseHash } from './engine/router'
 import { Town } from './world/Town'
 import { WikiPanel } from './ui/WikiPanel'
 import { ViewToggle } from './ui/ViewToggle'
+import { EpisodePicker } from './ui/EpisodePicker'
+import { RouteCaption } from './ui/RouteCaption'
 import { Disclaimer } from './ui/Disclaimer'
 
 export default function App() {
@@ -44,6 +46,8 @@ export default function App() {
         <color attach="background" args={['#a8d3e6']} />
         <Town />
       </Canvas>
+      <EpisodePicker />
+      <RouteCaption />
       <WikiPanel />
       <ViewToggle />
       <Disclaimer />

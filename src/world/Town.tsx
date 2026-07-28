@@ -3,6 +3,7 @@ import { Ground } from './Ground'
 import { Building } from './Building'
 import { Walkers } from './Walkers'
 import { NamedCharacters } from './NamedCharacters'
+import { EpisodePlayback } from './EpisodePlayback'
 import { IsoCameraRig } from './IsoCameraRig'
 
 // The whole town, composed inside <Canvas>. Everything is driven by content
@@ -24,6 +25,7 @@ export function Town() {
       ))}
       <Walkers />
       <NamedCharacters />
+      <EpisodePlayback />
       <IsoCameraRig />
     </group>
   )

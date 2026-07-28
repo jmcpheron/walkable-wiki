@@ -8,6 +8,7 @@ export type Selection = { kind: SelectionKind; slug: string } | null
 
 export interface EpisodePlayback {
   slug: string
+  runId: number // increments per playback so a replay remounts the courier fresh
   legIndex: number // which route stop the courier is heading to (or paused at)
   progress: number // 0..1 within the current leg, for observability/tests
   status: 'walking' | 'paused' | 'done'
@@ -88,7 +89,16 @@ export const useStore = create<WorldState>((set, get) => ({
   toggleView: () => set({ viewFlipped: !get().viewFlipped }),
 
   playEpisode: (slug) =>
-    set({ episode: { slug, legIndex: 0, progress: 0, status: 'walking' }, noteText: null }),
+    set({
+      episode: {
+        slug,
+        runId: (get().episode?.runId ?? 0) + 1,
+        legIndex: 0,
+        progress: 0,
+        status: 'walking',
+      },
+      noteText: null,
+    }),
   stopEpisode: () => {
     if (get().episode) set({ episode: null, noteText: null })
   },
