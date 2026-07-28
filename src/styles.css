@@ -209,8 +209,128 @@ canvas {
   border-radius: 10px;
   font-size: 0.92rem;
   text-align: center;
-  pointer-events: none;
   z-index: 22;
+}
+.route-caption-retro {
+  display: inline-block;
+  margin-top: 0.3rem;
+  font-size: 0.75rem;
+  color: #ffd23f;
+  text-decoration: none;
+  opacity: 0.85;
+}
+.episode-row {
+  display: flex;
+  align-items: center;
+}
+.episode-row > button:first-child {
+  flex: 1;
+}
+.episode-retro {
+  flex: 0 0 auto;
+  width: auto !important;
+  padding: 0.3rem 0.5rem !important;
+}
+
+/* ── Retro theater (vignette renderer) ─────────────────────────────────── */
+.retro-view {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #08090c;
+  z-index: 50;
+  font-family: 'Courier New', monospace;
+}
+.retro-frame {
+  width: min(720px, 96vw);
+  border: 10px solid #23283242;
+  outline: 2px solid #3a4150;
+  border-radius: 10px;
+  background: #101319;
+  color: #ffcf5c;
+  padding: 0.8rem 1rem 0.6rem;
+  box-shadow: 0 0 60px rgba(90, 140, 200, 0.15);
+}
+.retro-header {
+  text-align: center;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  opacity: 0.8;
+  margin-bottom: 0.6rem;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.retro-screen {
+  position: relative;
+  border: 3px solid #2a2f3a;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.retro-canvas {
+  display: block;
+  width: 100%;
+  image-rendering: pixelated;
+}
+.retro-scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.22) 0 2px, transparent 2px 4px);
+  pointer-events: none;
+}
+.retro-text {
+  min-height: 6.2rem;
+  padding: 0.6rem 0.4rem 0.2rem;
+}
+.retro-scene-title {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  opacity: 0.75;
+  margin-bottom: 0.35rem;
+}
+.retro-note {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #e8ddb8;
+}
+.retro-cursor {
+  animation: retro-blink 0.8s steps(1) infinite;
+}
+@keyframes retro-blink {
+  50% {
+    opacity: 0;
+  }
+}
+.retro-cast {
+  margin-top: 0.4rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  opacity: 0.7;
+}
+.retro-controls {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding-top: 0.5rem;
+  border-top: 1px dashed #2a2f3a;
+}
+.retro-controls button,
+.retro-controls a {
+  font-family: inherit;
+  font-size: 0.78rem;
+  padding: 0.35rem 0.7rem;
+  background: #1a1f29;
+  border: 1px solid #3a4150;
+  border-radius: 4px;
+  color: #ffcf5c;
+  cursor: pointer;
+  text-decoration: none;
+}
+.retro-controls button.active {
+  background: #3c526e;
+  color: #fff;
 }
 
 .corner-buttons {

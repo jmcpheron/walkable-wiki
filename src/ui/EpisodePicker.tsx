@@ -20,7 +20,7 @@ export function EpisodePicker() {
       {open && (
         <ul className="episode-picker-list">
           {list.map((e) => (
-            <li key={e.slug}>
+            <li key={e.slug} className="episode-row">
               <button
                 className={playing?.slug === e.slug ? 'active' : ''}
                 onClick={() => {
@@ -30,6 +30,16 @@ export function EpisodePicker() {
               >
                 {playing?.slug === e.slug ? '▶ ' : ''}
                 {e.title}
+              </button>
+              <button
+                className="episode-retro"
+                title="Watch in retro theater mode"
+                onClick={() => {
+                  setOpen(false)
+                  window.location.hash = `#/retro/${e.slug}`
+                }}
+              >
+                📼
               </button>
             </li>
           ))}

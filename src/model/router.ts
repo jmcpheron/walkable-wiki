@@ -22,6 +22,11 @@ export function hashFor(selection: Selection): string {
   return `#/${prefix}/${selection.slug}`
 }
 
+// #/retro/<slug> switches to the vignette renderer for that episode.
+export function parseRetroHash(hash: string): string | null {
+  return hash.match(/^#\/retro\/([\w-]+)/)?.[1] ?? null
+}
+
 export function initialRouteFromHash(): Selection {
   const route = parseHash(window.location.hash)
   if (!route) return null

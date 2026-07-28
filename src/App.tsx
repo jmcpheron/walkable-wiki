@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { useStore } from './model/store'
-import { hashFor, initialRouteFromHash, parseHash } from './model/router'
+import { episodes } from './model/content'
+import { hashFor, initialRouteFromHash, parseHash, parseRetroHash } from './model/router'
+import { RetroView } from './renderers/vignette/RetroView'
 import { Town } from './renderers/iso/Town'
 import { WikiPanel } from './ui/WikiPanel'
 import { ViewToggle } from './ui/ViewToggle'
@@ -14,8 +16,12 @@ import { FacadeEditor } from './editor/FacadeEditor'
 
 export default function App() {
   const [editorMode, setEditorMode] = useState(window.location.hash === '#/editor')
+  const [retroSlug, setRetroSlug] = useState(() => parseRetroHash(window.location.hash))
   useEffect(() => {
-    const onHash = () => setEditorMode(window.location.hash === '#/editor')
+    const onHash = () => {
+      setEditorMode(window.location.hash === '#/editor')
+      setRetroSlug(parseRetroHash(window.location.hash))
+    }
     window.addEventListener('hashchange', onHash)
     return () => window.removeEventListener('hashchange', onHash)
   }, [])
@@ -50,6 +56,7 @@ export default function App() {
   }, [])
 
   if (editorMode) return <FacadeEditor />
+  if (retroSlug && episodes[retroSlug]) return <RetroView key={retroSlug} slug={retroSlug} />
 
   return (
     <>

@@ -17,6 +17,9 @@ export function RouteCaption() {
       {scene.title && <div className="route-caption-title">{scene.title}</div>}
       {noteText && <div>{renderInline(noteText)}</div>}
       {castNames.length > 0 && <div className="route-caption-cast">with {castNames.join(', ')}</div>}
+      <a className="route-caption-retro" href={`#/retro/${episode.slug}`} title="Watch in retro theater mode">
+        📼 retro
+      </a>
     </div>
   )
 }
