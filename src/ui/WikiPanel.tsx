@@ -9,8 +9,6 @@ export function WikiPanel() {
   const wiki = useStore((s) => s.activeWiki)
   const closeWiki = useStore((s) => s.closeWiki)
 
-  // While the panel is open the pointer is already unlocked, so Esc reaches us
-  // here instead of (only) exiting pointer lock.
   useEffect(() => {
     if (!wiki) return
     const onKey = (e: KeyboardEvent) => {
@@ -31,7 +29,7 @@ export function WikiPanel() {
         </button>
       </div>
       <div className="wiki-panel-body">{renderBody(wiki.body)}</div>
-      <p className="wiki-panel-hint">Esc, E, or × to close — then click to keep walking</p>
+      <p className="wiki-panel-hint">Esc or × to close</p>
     </div>
   )
 }

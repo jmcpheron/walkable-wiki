@@ -7,6 +7,8 @@ import { WikiPanel } from './ui/WikiPanel'
 import { ViewToggle } from './ui/ViewToggle'
 import { EpisodePicker } from './ui/EpisodePicker'
 import { RouteCaption } from './ui/RouteCaption'
+import { BootOverlay } from './ui/BootOverlay'
+import { ControlsHint } from './ui/ControlsHint'
 import { Disclaimer } from './ui/Disclaimer'
 
 export default function App() {
@@ -50,6 +52,8 @@ export default function App() {
       <RouteCaption />
       <WikiPanel />
       <ViewToggle />
+      <ControlsHint />
+      <BootOverlay />
       <Disclaimer />
     </>
   )

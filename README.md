@@ -1,26 +1,23 @@
-# Seymour's Bay 3D — a walkable Bob's Burgers fan wiki
+# Seymour's Bay — a Bob's Burgers fan town & wiki
 
-A browser-based, walkable 3D fan wiki of the Bob's Burgers universe. Open the site, land
-on the street in Seymour's Bay, and walk around: past the restaurants, through doors into
-interiors, and up to clickable hotspots that open wiki panels with episode appearances
-and trivia.
+An isometric, voxel-style slice of Ocean Avenue in the browser — classic
+tycoon-game vibes. Pan along the street, watch the townsfolk stroll, and click any
+building or character to open its wiki entry. Pick an episode and watch it play out
+as a walk across the map (Weekend at Mort's: out of Bob's, straight into the funeral
+home next door).
 
 > **Unofficial fan site.** This is a strictly noncommercial fan project and is **not
-> affiliated with 20th Television, Fox, or Disney**. All 3D assets are original,
-> hand-made, low-poly homages — nothing is ripped from the show or games. No ads, no
+> affiliated with 20th Television, Fox, or Disney**. All art is original, procedural,
+> low-poly homage — nothing is ripped from the show or games. No ads, no
 > monetization, ever.
-
-## Status
-
-**M1 — Walkable slice.** Graybox street with two placeholder buildings, first-person
-walk controls, one enterable interior, one hotspot wiki panel, deployable as a fully
-static site.
 
 ## Controls
 
-- **WASD / arrow keys** — walk
-- **Mouse** — look (click the page to capture the mouse, Esc to release)
-- **E** (or click on a hotspot) — interact: open doors, read wiki panels
+- **Drag** (or arrow keys) — pan along the street
+- **Scroll** — zoom between whole-block and storefront framing
+- **Click** — open a building's or character's wiki panel (Esc or × closes)
+- **⟲ Other side** — swing the camera 180° to face the far side's storefronts
+- **📺 Episodes** — play an episode as a route across the map
 
 ## Development
 
@@ -41,11 +38,22 @@ workflow in `.github/workflows/deploy.yml`, and works on Vercel with zero config
 
 ## How the world is built
 
-The world is data, not code. Each location lives in `content/locations/<slug>/` as a
-JSON manifest (name, geometry parameters, doors, hotspots, wiki content), and
-`content/street.json` places locations on the street. The engine in `src/engine/` is
-generic — adding a building requires no engine changes. The manifest format is validated
-with zod at load time (`src/engine/manifest.ts`); formal JSON Schema + CI validation
-lands in M2, along with `CONTRIBUTING.md`.
+The world is data, not code — everything on screen is generated from JSON manifests:
 
-Deviations and decisions are logged in `docs/m1-notes.md`.
+- `content/locations/<slug>/manifest.json` — a building: voxel size, palette,
+  awning/window/sign parameters, wiki text
+- `content/street.json` — where buildings sit on the street
+- `content/characters/<slug>/manifest.json` — a clickable character standing in
+  front of a location
+- `content/episodes/<slug>/manifest.json` — an episode as an ordered route of
+  locations with per-stop notes
+- `content/tips.json` — the boot-screen tips
+
+All content is zod-validated at load (`src/engine/manifest.ts`) with cross-reference
+checks, so a bad manifest fails loudly. The renderer (`src/world/`) turns manifests
+into merged voxel geometry — adding a building, character, or episode requires zero
+engine changes. Deep links: `#/loc/<slug>`, `#/char/<slug>`, `#/ep/<slug>`.
+
+Decisions are logged in `docs/` (`m1-notes.md` for the original first-person build —
+preserved at tag `v0.1-first-person` — and `pivot-isometric.md` for the current
+direction).

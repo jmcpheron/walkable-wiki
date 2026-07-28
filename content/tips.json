@@ -1,11 +1,10 @@
 [
-  "Every building here is a **JSON manifest plus a low-poly model**. Add your own with a pull request — no engine code required.",
-  "Press **E** at any glowing **?** marker to open its wiki entry.",
-  "The URL updates as you travel — **share a link** and it drops your friends exactly where you're standing.",
-  "Coming eventually: a **continuity timeline** tracing episodes street by street.",
-  "**Wonder Wharf** is on the roadmap. The street grows one pull request at a time.",
-  "Everything is placeholder graybox art for now — the **toon shading pass** comes later, on purpose.",
-  "This site is **100% static**: the GitHub repo is the backend, and pull requests are the moderation queue.",
-  "**Esc** releases your mouse to click around the page; click the world to grab it again.",
-  "Spot a missing detail or a wrong episode reference? Wiki text lives in each location's manifest — **fix it with a PR**."
+  "Click any **building or character** to open its wiki entry.",
+  "**Drag** to pan along the street, **scroll** to zoom. Arrow keys work too.",
+  "Use **⟲ Other side** to swing the camera around — Jimmy Pesto's is over there, watching.",
+  "Open **📺 Episodes** to watch an episode play out as a walk across the map.",
+  "The URL updates as you explore — **share a link** and it drops friends exactly where you are.",
+  "Every building, character, and episode here is a **JSON manifest** plus procedural voxel art. Add your own with a pull request — no engine code required.",
+  "Coming eventually: a full **continuity timeline** and Wonder Wharf down the street.",
+  "This site is **100% static**: the GitHub repo is the backend, and pull requests are the moderation queue."
 ]
