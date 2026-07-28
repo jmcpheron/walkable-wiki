@@ -2,6 +2,7 @@ import { street, locations } from '../engine/content'
 import { Ground } from './Ground'
 import { Building } from './Building'
 import { Walkers } from './Walkers'
+import { NamedCharacters } from './NamedCharacters'
 import { IsoCameraRig } from './IsoCameraRig'
 
 // The whole town, composed inside <Canvas>. Everything is driven by content
@@ -22,6 +23,7 @@ export function Town() {
         />
       ))}
       <Walkers />
+      <NamedCharacters />
       <IsoCameraRig />
     </group>
   )

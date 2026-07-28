@@ -1,0 +1,19 @@
+{
+  "slug": "louise",
+  "name": "Louise Belcher",
+  "wiki": {
+    "title": "Louise Belcher",
+    "body": "The youngest Belcher and the family's nine-year-old agent of chaos, never seen without her **pink bunny-ears hat**.\n\n## Notes\n- The hat stays on. Do not ask about the hat\n- Runs schemes with the confidence of a career criminal\n- Kuchi Kopi is the trusted advisor"
+  },
+  "appearance": {
+    "palette": {
+      "skin": "#e8b98f",
+      "top": "#3e9451",
+      "bottom": "#3e9451",
+      "hair": "#1d1b19",
+      "hat": "#ff69b4"
+    },
+    "heightVoxels": 3
+  },
+  "at": { "location": "bobs-burgers", "offset": [2.2, 0.6] }
+}

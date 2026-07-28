@@ -1,0 +1,18 @@
+{
+  "slug": "jimmy-pesto",
+  "name": "Jimmy Pesto",
+  "wiki": {
+    "title": "Jimmy Pesto",
+    "body": "Owner of **Jimmy Pesto's Pizzeria** and Bob's self-appointed nemesis. Everything Bob isn't: slick, popular, and utterly uninterested in food.\n\n## Notes\n- Father of Jimmy Jr., Andy, and Ollie\n- Would rather win the feud than run the restaurant\n- The vest is load-bearing"
+  },
+  "appearance": {
+    "palette": {
+      "skin": "#e8b98f",
+      "top": "#3d3f6b",
+      "bottom": "#2c2e33",
+      "hair": "#4a4643"
+    },
+    "heightVoxels": 4.2
+  },
+  "at": { "location": "jimmy-pestos", "offset": [-1.5, 1] }
+}

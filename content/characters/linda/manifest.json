@@ -1,0 +1,18 @@
+{
+  "slug": "linda",
+  "name": "Linda Belcher",
+  "wiki": {
+    "title": "Linda Belcher",
+    "body": "Co-owner of Bob's Burgers, Bob's endlessly enthusiastic wife, and the restaurant's entire front-of-house energy. **Alriiiight!**\n\n## Notes\n- Will turn any situation into a song, uninvited\n- Big red glasses, bigger heart\n- Dinner theater is not a phase, it's a calling"
+  },
+  "appearance": {
+    "palette": {
+      "skin": "#e8b98f",
+      "top": "#c0392b",
+      "bottom": "#4a4238",
+      "hair": "#1d1b19"
+    },
+    "heightVoxels": 4
+  },
+  "at": { "location": "bobs-burgers", "offset": [0.5, 1.4] }
+}

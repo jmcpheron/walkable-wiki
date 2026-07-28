@@ -1,0 +1,18 @@
+{
+  "slug": "bob",
+  "name": "Bob Belcher",
+  "wiki": {
+    "title": "Bob Belcher",
+    "body": "Owner, head cook, and long-suffering heart of **Bob's Burgers**. A third-generation restaurateur who genuinely loves the craft of a good burger, even when nobody's buying one.\n\n## Notes\n- Author of the ever-changing pun-heavy **Burger of the Day**\n- Talks to inanimate objects when stressed, which is often\n- Sworn rival of Jimmy Pesto across the street"
+  },
+  "appearance": {
+    "palette": {
+      "skin": "#d9a878",
+      "top": "#8a8d91",
+      "bottom": "#3b3f45",
+      "hair": "#2f2a26"
+    },
+    "heightVoxels": 4.2
+  },
+  "at": { "location": "bobs-burgers", "offset": [-2, 0.8] }
+}
