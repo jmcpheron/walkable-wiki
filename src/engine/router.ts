@@ -1,18 +1,31 @@
-import { locations } from './content'
+import { characters, episodes, locations } from './content'
+import type { Selection, SelectionKind } from './store'
 
-// Hash-based deep links (#/loc/<slug>) rather than path routing: GitHub Pages serves
-// from a subpath and cannot rewrite arbitrary paths to index.html, but hashes always work.
+// Hash-based deep links (#/loc|char|ep/<slug>) rather than path routing: GitHub Pages
+// serves from a subpath and cannot rewrite arbitrary paths to index.html.
 
-export function parseHash(hash: string): string | null {
-  return hash.match(/^#\/loc\/([\w-]+)/)?.[1] ?? null
+const PREFIXES: Record<string, SelectionKind> = {
+  loc: 'location',
+  char: 'character',
+  ep: 'episode',
 }
 
-export function hashForScene(scene: string): string {
-  return scene === 'street' ? '#/' : `#/loc/${scene}`
+export function parseHash(hash: string): Selection {
+  const m = hash.match(/^#\/(loc|char|ep)\/([\w-]+)/)
+  if (!m) return null
+  return { kind: PREFIXES[m[1]], slug: m[2] }
 }
 
-export function initialSceneFromHash(): { scene: string; spawnId: string } {
-  const slug = parseHash(window.location.hash)
-  if (slug && locations[slug]?.interior) return { scene: slug, spawnId: 'entry' }
-  return { scene: 'street', spawnId: 'street-entry' }
+export function hashFor(selection: Selection): string {
+  if (!selection) return '#/'
+  const prefix = selection.kind === 'location' ? 'loc' : selection.kind === 'character' ? 'char' : 'ep'
+  return `#/${prefix}/${selection.slug}`
+}
+
+export function initialRouteFromHash(): Selection {
+  const route = parseHash(window.location.hash)
+  if (!route) return null
+  const registry =
+    route.kind === 'location' ? locations : route.kind === 'character' ? characters : episodes
+  return registry[route.slug] ? route : null
 }

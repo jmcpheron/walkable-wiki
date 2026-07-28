@@ -1,70 +1,96 @@
 import { create } from 'zustand'
-import type { DoorDef, HotspotDef, WikiContent } from './manifest'
+import type { WikiContent } from './manifest'
+import { characters, episodes, locations } from './content'
+import { doorstep } from '../world/layout'
 
-export type TransitionPhase = 'idle' | 'fade-out' | 'loading' | 'fade-in'
+export type SelectionKind = 'location' | 'character' | 'episode'
+export type Selection = { kind: SelectionKind; slug: string } | null
 
-// One store for all cross-cutting world state. zustand (not React context) because the
-// player controller reads this every frame inside useFrame — getState() is a plain read
-// with no re-render, whereas context would re-render the whole canvas tree.
+export interface EpisodePlayback {
+  slug: string
+  legIndex: number // which route stop the courier is heading to (or paused at)
+  progress: number // 0..1 within the current leg, for observability/tests
+  status: 'walking' | 'paused' | 'done'
+}
+
+// One store for all cross-cutting state. zustand (not React context) because the
+// camera rig, walkers, and episode playback read/write every frame via getState() —
+// a plain read with no re-render, whereas context would re-render the canvas tree.
 interface WorldState {
-  scene: string // 'street' or a location slug
-  spawnId: string
-  phase: TransitionPhase
-  pendingTravel: { scene: string; spawn: string } | null
+  selection: Selection
   activeWiki: WikiContent | null
-  nearDoor: DoorDef | null
-  hoveredHotspot: HotspotDef | null
-  locked: boolean // pointer lock engaged
+  hovered: string | null // e.g. 'loc:bobs-burgers' / 'char:bob' — drives the cursor
+  zoom: number
+  focusRequest: { x: number; z: number; seq: number } | null // camera pans here when seq changes
+  episode: EpisodePlayback | null
+  noteText: string | null // current route-stop caption
+  booted: boolean // boot overlay has been dismissed
 
-  requestTravel: (scene: string, spawn: string) => void
-  swapScenes: () => void
-  finishTransition: () => void
-  openWiki: (wiki: WikiContent) => void
+  select: (kind: SelectionKind, slug: string) => void
+  clearSelection: () => void
   closeWiki: () => void
-  revealScene: () => void
-  setNearDoor: (door: DoorDef | null) => void
-  setHoveredHotspot: (hotspot: HotspotDef | null) => void
-  setLocked: (locked: boolean) => void
+  setHovered: (hovered: string | null) => void
+  setZoom: (zoom: number) => void
+  requestFocus: (x: number, z: number) => void
+  setBooted: () => void
+  playEpisode: (slug: string) => void
+  stopEpisode: () => void
+  _tickEpisode: (patch: Partial<EpisodePlayback>) => void
+  setNote: (noteText: string | null) => void
 }
 
 export const useStore = create<WorldState>((set, get) => ({
-  scene: 'street',
-  spawnId: 'street-entry',
-  phase: 'idle',
-  pendingTravel: null,
+  selection: null,
   activeWiki: null,
-  nearDoor: null,
-  hoveredHotspot: null,
-  locked: false,
+  hovered: null,
+  zoom: 40,
+  focusRequest: null,
+  episode: null,
+  noteText: null,
+  booted: false,
 
-  // Travel state machine, driven by FadeOverlay's timers:
-  //   requestTravel → 'fade-out' (screen covers) → swapScenes → 'loading' (new scene
-  //   mounts + compiles behind the veil, tip on screen) → revealScene → 'fade-in'
-  //   (screen clears) → finishTransition → 'idle'.
-  requestTravel: (scene, spawn) => {
-    if (get().phase !== 'idle') return
-    set({ phase: 'fade-out', pendingTravel: { scene, spawn } })
+  select: (kind, slug) => {
+    if (kind === 'location') {
+      const loc = locations[slug]
+      if (!loc) return
+      const step = doorstep(slug)
+      set({ selection: { kind, slug }, activeWiki: loc.wiki })
+      get().requestFocus(step.x, step.z)
+    } else if (kind === 'character') {
+      const char = characters[slug]
+      if (!char) return
+      const step = doorstep(char.at.location)
+      set({ selection: { kind, slug }, activeWiki: char.wiki })
+      get().requestFocus(step.x, step.z)
+    } else {
+      const ep = episodes[slug]
+      if (!ep) return
+      set({ selection: { kind, slug }, activeWiki: ep.wiki })
+      get().playEpisode(slug)
+      const start = doorstep(ep.route[0].location)
+      get().requestFocus(start.x, start.z)
+    }
   },
-  swapScenes: () => {
-    const travel = get().pendingTravel
-    if (!travel) return
-    set({
-      scene: travel.scene,
-      spawnId: travel.spawn,
-      pendingTravel: null,
-      nearDoor: null, // sensors unmount with the old scene; never fire their exit events
-      hoveredHotspot: null,
-      phase: 'loading',
-    })
+  clearSelection: () => {
+    get().stopEpisode()
+    set({ selection: null, activeWiki: null, noteText: null })
   },
-  revealScene: () => set({ phase: 'fade-in' }),
-  finishTransition: () => set({ phase: 'idle' }),
-
-  openWiki: (wiki) => set({ activeWiki: wiki }),
+  // Closing the panel keeps an episode playing — you can watch the walk uncluttered.
   closeWiki: () => set({ activeWiki: null }),
-  setNearDoor: (nearDoor) => set({ nearDoor }),
-  setHoveredHotspot: (hoveredHotspot) => set({ hoveredHotspot }),
-  setLocked: (locked) => set({ locked }),
-}))
 
-export const selectCanMove = (s: WorldState) => s.phase === 'idle' && s.activeWiki === null
+  setHovered: (hovered) => set({ hovered }),
+  setZoom: (zoom) => set({ zoom }),
+  requestFocus: (x, z) => set({ focusRequest: { x, z, seq: (get().focusRequest?.seq ?? 0) + 1 } }),
+  setBooted: () => set({ booted: true }),
+
+  playEpisode: (slug) =>
+    set({ episode: { slug, legIndex: 0, progress: 0, status: 'walking' }, noteText: null }),
+  stopEpisode: () => {
+    if (get().episode) set({ episode: null, noteText: null })
+  },
+  _tickEpisode: (patch) => {
+    const episode = get().episode
+    if (episode) set({ episode: { ...episode, ...patch } })
+  },
+  setNote: (noteText) => set({ noteText }),
+}))

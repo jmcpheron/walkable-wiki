@@ -1,11 +1,8 @@
 import { z } from 'zod'
 
-// The location-manifest shape is the project's most important API: contributors add
-// buildings by writing these JSON files, never by touching engine code. M1 validates
-// with zod at load time; M2 formalizes this as JSON Schema + a CI check (see schemas/).
-
-export const vec3 = z.tuple([z.number(), z.number(), z.number()])
-export type Vec3 = z.infer<typeof vec3>
+// The manifest shapes are the project's most important API: contributors add
+// buildings, characters, and episodes by writing these JSON files, never by touching
+// engine code. All content is zod-validated loudly at load time (see content.ts).
 
 export const wikiContent = z.object({
   title: z.string(),
@@ -14,62 +11,91 @@ export const wikiContent = z.object({
 })
 export type WikiContent = z.infer<typeof wikiContent>
 
-// yaw is in degrees; 0 faces -Z (the three.js camera default), 180 faces +Z
-export const spawnDef = z.object({ position: vec3, yaw: z.number() })
-export type SpawnDef = z.infer<typeof spawnDef>
+// ── Locations ────────────────────────────────────────────────────────────────
 
-// A door either travels somewhere (`target`) or opens a wiki panel (`wiki`) —
-// exterior-only buildings use the latter as a "coming soon" placeholder.
-export const doorDef = z.object({
-  id: z.string(),
-  position: vec3, // local to the location; y = floor level at the door's center
-  label: z.string().optional(),
-  target: z
+export const buildingPalette = z.object({
+  wall: z.string(),
+  trim: z.string(),
+  roof: z.string(),
+  door: z.string(),
+  sign: z.string(),
+  window: z.string().default('#9fc3d9'),
+  awning: z.string().optional(),
+})
+export type BuildingPalette = z.infer<typeof buildingPalette>
+
+export const exteriorDef = z.object({
+  // [width, depth, height] in voxels (1 voxel = 0.5 world units)
+  size: z.tuple([z.number().int().min(4), z.number().int().min(4), z.number().int().min(6)]),
+  palette: buildingPalette,
+  signText: z.string().optional(), // defaults to the location name
+  windows: z.object({ rows: z.number().int().min(0), cols: z.number().int().min(0) }).optional(),
+  awning: z.boolean().default(false),
+  door: z
     .object({
-      scene: z.string(), // 'street' or a location slug
-      spawn: z.string(), // spawn id in the target scene
+      offsetX: z.number().int().default(0), // voxels from front-face center
+      width: z.number().int().min(1).default(2),
     })
-    .optional(),
-  wiki: wikiContent.optional(),
+    .prefault({}),
 })
-export type DoorDef = z.infer<typeof doorDef>
-
-export const hotspotDef = z.object({
-  id: z.string(),
-  position: vec3,
-  wiki: wikiContent,
-})
-export type HotspotDef = z.infer<typeof hotspotDef>
+export type ExteriorDef = z.infer<typeof exteriorDef>
 
 export const locationManifest = z.object({
   slug: z.string(),
   name: z.string(),
   wiki: wikiContent,
-  exterior: z.object({
-    footprint: vec3, // [width, depth, height] of the graybox exterior
-    color: z.string(),
-    door: doorDef, // on the front (+Z) face in local space
-  }),
-  interior: z
-    .object({
-      size: vec3, // [width, depth, height] of the room
-      color: z.string(),
-      spawns: z.record(z.string(), spawnDef), // must include 'entry'
-      doors: z.array(doorDef),
-      hotspots: z.array(hotspotDef),
-    })
-    .optional(),
+  exterior: exteriorDef,
 })
 export type LocationManifest = z.infer<typeof locationManifest>
 
 export const streetRegistry = z.object({
-  spawn: spawnDef, // where first-time visitors appear
   placements: z.array(
     z.object({
       slug: z.string(),
-      position: z.tuple([z.number(), z.number()]), // world [x, z]; buildings face +Z at rotationY 0
-      rotationY: z.number(), // degrees
+      position: z.tuple([z.number(), z.number()]), // world [x, z]
+      rotationY: z.number(), // degrees; 0 = storefront faces +Z, 180 = faces -Z
     })
   ),
 })
 export type StreetRegistry = z.infer<typeof streetRegistry>
+
+// ── Characters ───────────────────────────────────────────────────────────────
+
+export const characterManifest = z.object({
+  slug: z.string(),
+  name: z.string(),
+  wiki: wikiContent,
+  appearance: z.object({
+    palette: z.object({
+      skin: z.string(),
+      top: z.string(),
+      bottom: z.string(),
+      hair: z.string(),
+      hat: z.string().optional(),
+    }),
+    heightVoxels: z.number().default(4), // adults ~4, kids ~3
+  }),
+  at: z.object({
+    location: z.string(), // placement slug this character stands near
+    offset: z.tuple([z.number(), z.number()]).prefault([0, 0]), // world units [along-front, out-from-front]
+  }),
+})
+export type CharacterManifest = z.infer<typeof characterManifest>
+
+// ── Episodes ─────────────────────────────────────────────────────────────────
+
+export const episodeManifest = z.object({
+  slug: z.string(),
+  title: z.string(),
+  wiki: wikiContent,
+  // Ordered stops; playback walks a courier from stop to stop along the sidewalks.
+  route: z
+    .array(
+      z.object({
+        location: z.string(),
+        note: z.string().optional(), // caption shown on arrival (markdown-ish inline)
+      })
+    )
+    .min(2),
+})
+export type EpisodeManifest = z.infer<typeof episodeManifest>

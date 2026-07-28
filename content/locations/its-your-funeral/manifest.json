@@ -3,19 +3,18 @@
   "name": "It's Your Funeral Home & Crematorium",
   "wiki": {
     "title": "It's Your Funeral Home & Crematorium",
-    "body": "The funeral home next door to Bob's Burgers, run by the Belchers' mild-mannered friend and neighbor **Mort**.\n\n## Notes\n- Source of the infamous 'human flesh burgers' rumor in the very first episode\n- Mort is a regular at Bob's counter"
+    "body": "The funeral home next door to Bob's Burgers, run by the Belchers' mild-mannered friend and neighbor **Mort**.\n\n## Notes\n- Source of the infamous 'human flesh burgers' rumor in the very first episode\n- Mort is a regular at Bob's counter\n- Site of the sleepover in **Weekend at Mort's**, after the Belchers' apartment gets fumigated"
   },
   "exterior": {
-    "footprint": [7, 6, 4.5],
-    "color": "#6b7a8f",
-    "door": {
-      "id": "its-your-funeral-front",
-      "position": [0, 0, 3.07],
-      "label": "It's Your Funeral",
-      "wiki": {
-        "title": "It's Your Funeral Home & Crematorium",
-        "body": "The door is locked — Mort must be in the back.\n\n**This interior hasn't been built yet.** Want to model it? This site is a community project: every location is a JSON manifest plus a low-poly model, added by pull request. See the repo README for how to contribute."
-      }
-    }
+    "size": [14, 12, 10],
+    "palette": {
+      "wall": "#6b7a8f",
+      "trim": "#c9d2dc",
+      "roof": "#414b57",
+      "door": "#2f3742",
+      "sign": "#dfe6ee",
+      "window": "#8fa7bb"
+    },
+    "signText": "IT'S YOUR FUNERAL"
   }
 }

@@ -1,0 +1,22 @@
+{
+  "slug": "bobs-burgers",
+  "name": "Bob's Burgers",
+  "wiki": {
+    "title": "Bob's Burgers",
+    "body": "The Belcher family's burger restaurant on Ocean Avenue, with the family's apartment upstairs. Run by **Bob and Linda Belcher** with 'help' from Tina, Gene, and Louise.\n\n## The Burger of the Day\nThe chalkboard pun burger changes constantly and is almost always better than business is. Bob takes it more seriously than nearly anything else.\n\n## Notes\n- Squeezed between It's Your Funeral Home and, at various times, an ever-failing storefront next door\n- Directly across the street from Jimmy Pesto's Pizzeria, to Bob's eternal irritation\n- The grand re-re-re-opening happened in the very first episode"
+  },
+  "exterior": {
+    "size": [12, 10, 12],
+    "palette": {
+      "wall": "#c8564a",
+      "trim": "#f2e6c9",
+      "roof": "#8a4f42",
+      "door": "#5d3a2e",
+      "sign": "#f5efdc",
+      "window": "#a8cfdf",
+      "awning": "#3e7d5a"
+    },
+    "signText": "BOB'S BURGERS",
+    "awning": true
+  }
+}

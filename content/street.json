@@ -1,7 +1,7 @@
 {
-  "spawn": { "position": [0, 0, 7], "yaw": 0 },
   "placements": [
-    { "slug": "jimmy-pestos", "position": [-7, -8], "rotationY": 0 },
-    { "slug": "its-your-funeral", "position": [7, -8], "rotationY": 0 }
+    { "slug": "bobs-burgers", "position": [0, -8], "rotationY": 0 },
+    { "slug": "its-your-funeral", "position": [8, -8], "rotationY": 0 },
+    { "slug": "jimmy-pestos", "position": [-6, 8], "rotationY": 180 }
   ]
 }

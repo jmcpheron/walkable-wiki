@@ -1,34 +1,77 @@
 import { z } from 'zod'
 import {
+  characterManifest,
+  episodeManifest,
   locationManifest,
   streetRegistry,
+  type CharacterManifest,
+  type EpisodeManifest,
   type LocationManifest,
-  type SpawnDef,
 } from './manifest'
 import streetJson from '../../content/street.json'
 import tipsJson from '../../content/tips.json'
 
-// All manifests are bundled at build time via glob import — no fetches, no absolute
-// paths, so the build is GitHub Pages subpath-safe by construction. zod .parse() here
-// means a malformed manifest crashes loudly in dev instead of misrendering silently.
-const manifestModules = import.meta.glob('/content/locations/*/manifest.json', {
-  eager: true,
-}) as Record<string, { default: unknown }>
+// All content is bundled at build time via glob imports — no fetches, no absolute
+// paths, so the build stays GitHub Pages subpath-safe by construction. zod .parse()
+// here means malformed content crashes loudly in dev instead of misrendering silently.
 
-export const locations: Record<string, LocationManifest> = {}
-for (const [path, mod] of Object.entries(manifestModules)) {
-  const parsed = locationManifest.parse(mod.default)
-  const dirSlug = path.match(/locations\/([^/]+)\//)?.[1]
-  if (parsed.slug !== dirSlug) {
-    throw new Error(`Manifest slug "${parsed.slug}" does not match its folder "${dirSlug}"`)
+function loadRegistry<T extends { slug: string }>(
+  modules: Record<string, { default: unknown }>,
+  schema: z.ZodType<T>,
+  kind: string
+): Record<string, T> {
+  const registry: Record<string, T> = {}
+  for (const [path, mod] of Object.entries(modules)) {
+    const parsed = schema.parse(mod.default)
+    const dirSlug = path.match(/\/([^/]+)\/manifest\.json$/)?.[1]
+    if (parsed.slug !== dirSlug) {
+      throw new Error(`${kind} manifest slug "${parsed.slug}" does not match its folder "${dirSlug}"`)
+    }
+    registry[parsed.slug] = parsed
   }
-  locations[parsed.slug] = parsed
+  return registry
 }
+
+export const locations = loadRegistry<LocationManifest>(
+  import.meta.glob('/content/locations/*/manifest.json', { eager: true }) as Record<string, { default: unknown }>,
+  locationManifest,
+  'Location'
+)
+
+export const characters = loadRegistry<CharacterManifest>(
+  import.meta.glob('/content/characters/*/manifest.json', { eager: true }) as Record<string, { default: unknown }>,
+  characterManifest,
+  'Character'
+)
+
+export const episodes = loadRegistry<EpisodeManifest>(
+  import.meta.glob('/content/episodes/*/manifest.json', { eager: true }) as Record<string, { default: unknown }>,
+  episodeManifest,
+  'Episode'
+)
 
 export const street = streetRegistry.parse(streetJson)
 
-// Loading-screen tips (markdown-ish inline **bold** allowed) — content, not code.
+// Loading/boot-screen tips (markdown-ish inline **bold** allowed) — content, not code.
 export const tips = z.array(z.string().min(1)).parse(tipsJson)
+
+// ── Cross-reference validation: fail loudly at load, not weirdly at runtime ──
+
+for (const p of street.placements) {
+  if (!locations[p.slug]) throw new Error(`street.json places unknown location "${p.slug}"`)
+}
+for (const c of Object.values(characters)) {
+  if (!street.placements.some((p) => p.slug === c.at.location)) {
+    throw new Error(`Character "${c.slug}" stands at "${c.at.location}", which is not placed on the street`)
+  }
+}
+for (const e of Object.values(episodes)) {
+  for (const stop of e.route) {
+    if (!street.placements.some((p) => p.slug === stop.location)) {
+      throw new Error(`Episode "${e.slug}" routes through "${stop.location}", which is not placed on the street`)
+    }
+  }
+}
 
 export function getLocation(slug: string): LocationManifest {
   const loc = locations[slug]
@@ -36,33 +79,8 @@ export function getLocation(slug: string): LocationManifest {
   return loc
 }
 
-const DOOR_EXIT_OFFSET = 1.8 // metres outside the door sensor, so exiting can't re-trigger it
-
-// Resolve a named spawn point to world coordinates for the given scene.
-// Street spawns: 'street-entry' (street.json) or 'door-<slug>' (just outside that
-// building's front door, facing away from it). Interior spawns come from the manifest.
-export function resolveSpawn(scene: string, spawnId: string): SpawnDef {
-  if (scene === 'street') {
-    const slug = spawnId.match(/^door-(.+)$/)?.[1]
-    const placement = slug ? street.placements.find((p) => p.slug === slug) : undefined
-    const loc = placement && locations[placement.slug]
-    if (placement && loc) {
-      const rot = (placement.rotationY * Math.PI) / 180
-      const [lx, , lz] = loc.exterior.door.position
-      const cos = Math.cos(rot)
-      const sin = Math.sin(rot)
-      // door position and its outward normal (local +Z), rotated into world space
-      const wx = placement.position[0] + lx * cos + lz * sin
-      const wz = placement.position[1] - lx * sin + lz * cos
-      return {
-        position: [wx + sin * DOOR_EXIT_OFFSET, 0, wz + cos * DOOR_EXIT_OFFSET],
-        yaw: placement.rotationY + 180, // face away from the building
-      }
-    }
-    return street.spawn
-  }
-  const interior = getLocation(scene).interior
-  const spawn = interior?.spawns[spawnId] ?? interior?.spawns['entry']
-  if (!spawn) throw new Error(`Location "${scene}" has no interior spawn "${spawnId}"`)
-  return spawn
+export function getPlacement(slug: string) {
+  const placement = street.placements.find((p) => p.slug === slug)
+  if (!placement) throw new Error(`Location "${slug}" is not placed on the street`)
+  return placement
 }
