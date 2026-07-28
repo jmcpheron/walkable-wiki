@@ -1,5 +1,6 @@
 import { useEffect, type ReactNode } from 'react'
 import { useStore } from '../engine/store'
+import { renderInline } from './markdownish'
 
 // The wiki layer: a plain DOM overlay (never inside the canvas) rendering the
 // markdown-ish manifest content. Kept to a tiny hand-rolled formatter in M1 —
@@ -73,14 +74,4 @@ function renderBody(body: string): ReactNode[] {
   }
   flush()
   return nodes
-}
-
-function renderInline(text: string): ReactNode[] {
-  return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
-    part.startsWith('**') && part.endsWith('**') ? (
-      <strong key={i}>{part.slice(2, -2)}</strong>
-    ) : (
-      part
-    )
-  )
 }

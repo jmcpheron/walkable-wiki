@@ -13,8 +13,11 @@ the `DECISIONS.md` role for M1.)
 - **Hand-authored coordinates** in `content/street.json` (`position: [x, z]`,
   `rotationY` in degrees). A slot system can layer on top in M2 without changing
   location manifests.
-- **Fade transition timing is user-written** — see the `TODO(user)` block in
-  `src/ui/FadeOverlay.tsx`. Ships with a working instant-swap placeholder.
+- **Door travel is a loading screen, not just a fade** (owner decision, post-M1): fade
+  out ~450 ms → hold at black ≥2.2 s with a "Now entering …" card + one rotating tip →
+  fade in ~650 ms. Tips live in `content/tips.json` (content, not code) and teach
+  site abilities / roadmap items; the `loading` store phase is the seam where real
+  GLB downloads will gate the reveal in M2+ instead of a fixed timer.
 
 ## Engine decisions
 

@@ -1,3 +1,4 @@
+import { z } from 'zod'
 import {
   locationManifest,
   streetRegistry,
@@ -5,6 +6,7 @@ import {
   type SpawnDef,
 } from './manifest'
 import streetJson from '../../content/street.json'
+import tipsJson from '../../content/tips.json'
 
 // All manifests are bundled at build time via glob import — no fetches, no absolute
 // paths, so the build is GitHub Pages subpath-safe by construction. zod .parse() here
@@ -24,6 +26,9 @@ for (const [path, mod] of Object.entries(manifestModules)) {
 }
 
 export const street = streetRegistry.parse(streetJson)
+
+// Loading-screen tips (markdown-ish inline **bold** allowed) — content, not code.
+export const tips = z.array(z.string().min(1)).parse(tipsJson)
 
 export function getLocation(slug: string): LocationManifest {
   const loc = locations[slug]

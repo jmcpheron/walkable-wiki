@@ -121,14 +121,51 @@ canvas {
   margin-bottom: 0;
 }
 
-/* Transition veil for door travel. Timing lives in FadeOverlay.tsx — see the
-   TODO(user) there; add a `transition: opacity ...` here if you take the CSS route. */
+/* Loading-screen veil for door travel; durations are set inline by FadeOverlay.tsx. */
 .fade-overlay {
   position: fixed;
   inset: 0;
   background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition-property: opacity;
+  transition-timing-function: ease-in-out;
   pointer-events: none;
   z-index: 40;
+}
+.loading-card {
+  max-width: min(560px, 84vw);
+  text-align: center;
+  color: #fff;
+}
+.loading-kicker {
+  margin: 0;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+.loading-destination {
+  margin: 0.35rem 0 1.6rem;
+  font-size: 1.9rem;
+}
+.loading-tip {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  opacity: 0.85;
+}
+.loading-tip-label {
+  display: inline-block;
+  margin-right: 0.6em;
+  padding: 0.1em 0.55em;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 999px;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.8;
 }
 
 .disclaimer {
