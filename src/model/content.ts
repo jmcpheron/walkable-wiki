@@ -72,6 +72,25 @@ for (const loc of Object.values(locations)) {
   if (!schemes[loc.exterior.scheme]) {
     throw new Error(`Location "${loc.slug}" uses unknown color scheme "${loc.exterior.scheme}"`)
   }
+  if (loc.interior) {
+    const ids = new Set<string>()
+    for (const room of loc.interior.rooms) {
+      if (ids.has(room.id)) throw new Error(`Location "${loc.slug}" has duplicate room id "${room.id}"`)
+      ids.add(room.id)
+    }
+    for (const room of loc.interior.rooms) {
+      for (const door of room.doors) {
+        if (door.to !== 'street' && !ids.has(door.to)) {
+          throw new Error(`Location "${loc.slug}" room "${room.id}" has a door to unknown room "${door.to}"`)
+        }
+      }
+      for (const prop of room.props) {
+        if (prop.at[0] > room.size[0] || prop.at[1] > room.size[1]) {
+          console.warn(`[content] "${loc.slug}" room "${room.id}": ${prop.type} at [${prop.at}] is outside the ${room.size[0]}x${room.size[1]} room`)
+        }
+      }
+    }
+  }
 }
 for (const c of Object.values(characters)) {
   if (!street.placements.some((p) => p.slug === c.at.location)) {

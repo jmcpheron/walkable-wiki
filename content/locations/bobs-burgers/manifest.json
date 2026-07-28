@@ -165,5 +165,193 @@
         "TTFDDDDDDFFBBBBBBBBBBBBBBBBBBBFFdddddddddBBBBFTT"
       ]
     }
+  },
+  "interior": {
+    "rooms": [
+      {
+        "id": "dining",
+        "name": "The dining room",
+        "size": [
+          10,
+          8
+        ],
+        "props": [
+          {
+            "type": "counter",
+            "at": [
+              2,
+              6
+            ],
+            "size": [
+              6,
+              1
+            ]
+          },
+          {
+            "type": "stool",
+            "at": [
+              2.5,
+              5
+            ],
+            "count": 6
+          },
+          {
+            "type": "booth",
+            "at": [
+              0.5,
+              1
+            ],
+            "count": 3,
+            "size": [
+              2,
+              6
+            ]
+          },
+          {
+            "type": "register",
+            "at": [
+              7.5,
+              6.5
+            ]
+          },
+          {
+            "type": "chalkboard",
+            "at": [
+              9,
+              6.5
+            ],
+            "label": "Burger of the Day"
+          },
+          {
+            "type": "window",
+            "at": [
+              3,
+              0
+            ],
+            "count": 2
+          },
+          {
+            "type": "door",
+            "at": [
+              6,
+              0
+            ]
+          },
+          {
+            "type": "plant",
+            "at": [
+              9.5,
+              0.5
+            ]
+          }
+        ],
+        "doors": [
+          {
+            "to": "street"
+          },
+          {
+            "to": "kitchen"
+          }
+        ]
+      },
+      {
+        "id": "kitchen",
+        "name": "The kitchen",
+        "size": [
+          8,
+          6
+        ],
+        "props": [
+          {
+            "type": "stove",
+            "at": [
+              1,
+              5
+            ],
+            "size": [
+              3,
+              1
+            ],
+            "label": "the grill"
+          },
+          {
+            "type": "counter",
+            "at": [
+              4.5,
+              5
+            ],
+            "size": [
+              3,
+              1
+            ]
+          },
+          {
+            "type": "sink",
+            "at": [
+              7,
+              3
+            ]
+          },
+          {
+            "type": "fridge",
+            "at": [
+              0.5,
+              2
+            ]
+          },
+          {
+            "type": "freezer",
+            "at": [
+              0.5,
+              0.5
+            ],
+            "label": "the walk-in"
+          },
+          {
+            "type": "shelf",
+            "at": [
+              5,
+              0.5
+            ],
+            "size": [
+              2.5,
+              0.5
+            ]
+          }
+        ],
+        "doors": [
+          {
+            "to": "dining"
+          }
+        ]
+      },
+      {
+        "id": "stairwell",
+        "name": "The stairwell",
+        "size": [
+          3,
+          6
+        ],
+        "props": [
+          {
+            "type": "stairs",
+            "at": [
+              1,
+              2
+            ],
+            "size": [
+              1.5,
+              3.5
+            ],
+            "label": "up to the apartment"
+          }
+        ],
+        "doors": [
+          {
+            "to": "street"
+          }
+        ]
+      }
+    ]
   }
 }
