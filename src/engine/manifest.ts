@@ -124,6 +124,7 @@ export const exteriorDef = z.object({
   palette: paletteOverride.optional(), // per-color overrides on top of the scheme
   signText: z.string().optional(), // defaults to the location name
   signY: z.number().optional(), // sign-text height in voxels (default 5.5)
+  signColor: z.string().optional(), // sign-text color (default dark ink)
   features: z.array(featureDef).default([]),
   // Hand-painted front grid (advanced): replaces the style's front-face details;
   // structure and features still apply. door.offsetX always drives doorstep layout.

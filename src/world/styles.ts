@@ -35,6 +35,15 @@ export function styleBoxes(
   boxes.push({ min: [-w / 2 + 1, h, -d / 2 + 1], size: [w - 2, 0.4, d - 2], color: colors.roof })
   boxes.push({ min: [w / 2 - 4.5, h + 0.4, -d / 2 + 2], size: [3, 1.4, 2], color: colors.trim })
 
+  if (!options.frontDetails) {
+    // A painted facade owns the whole front, including the crown/cornice shape —
+    // give the structure a neutral parapet on the back and sides only.
+    boxes.push({ min: [-w / 2, h, -d / 2], size: [w, 1, 1], color: colors.trim })
+    boxes.push({ min: [-w / 2, h, -d / 2 + 1], size: [1, 1, d - 1], color: colors.trim })
+    boxes.push({ min: [w / 2 - 1, h, -d / 2 + 1], size: [1, 1, d - 1], color: colors.trim })
+    return boxes
+  }
+
   const signBand = () => {
     boxes.push({ min: [-w / 2 + 0.3, 4.6, FZ], size: [w - 0.6, 1.8, 0.3], color: colors.sign })
     boxes.push({ min: [-w / 2 + 0.2, 6.35, FZ], size: [w - 0.4, 0.25, 0.4], color: colors.accent })
@@ -70,34 +79,28 @@ export function styleBoxes(
       boxes.push({ min: [-w / 2 + inset - 0.35, h + 0.7 + i * 0.6, FZ - 0.9], size: [0.35, 0.6, 1.15], color: colors.trim })
       boxes.push({ min: [w / 2 - inset, h + 0.7 + i * 0.6, FZ - 0.9], size: [0.35, 0.6, 1.15], color: colors.trim })
     }
-    if (options.frontDetails) {
-      // cornice line above each upper floor band
-      for (const y of floorLines(h)) {
-        boxes.push({ min: [-w / 2, y + 0.15, FZ], size: [w, 0.3, 0.6], color: colors.trim })
-      }
-      upperWindows(2, 2.6, true)
-      signBand()
+    // cornice line above each upper floor band
+    for (const y of floorLines(h)) {
+      boxes.push({ min: [-w / 2, y + 0.15, FZ], size: [w, 0.3, 0.6], color: colors.trim })
     }
+    upperWindows(2, 2.6, true)
+    signBand()
   } else if (style === 'brick') {
     // flat parapet with coping + string courses
     boxes.push({ min: [-w / 2 - 0.15, h, -d / 2], size: [w + 0.3, 0.55, d], color: colors.trim })
-    if (options.frontDetails) {
-      for (const y of floorLines(h)) {
-        boxes.push({ min: [-w / 2, y + 0.3, FZ], size: [w, 0.18, 0.35], color: colors.accent }) // string course
-      }
-      upperWindows(2.4, 2.4, false)
-      signBand()
+    for (const y of floorLines(h)) {
+      boxes.push({ min: [-w / 2, y + 0.3, FZ], size: [w, 0.18, 0.35], color: colors.accent }) // string course
     }
+    upperWindows(2.4, 2.4, false)
+    signBand()
   } else {
     // shopfront: simple parapet ring
     boxes.push({ min: [-w / 2, h, -d / 2], size: [w, 1, 1], color: colors.trim })
     boxes.push({ min: [-w / 2, h, d / 2 - 1], size: [w, 1, 1], color: colors.trim })
     boxes.push({ min: [-w / 2, h, -d / 2 + 1], size: [1, 1, d - 2], color: colors.trim })
     boxes.push({ min: [w / 2 - 1, h, -d / 2 + 1], size: [1, 1, d - 2], color: colors.trim })
-    if (options.frontDetails) {
-      upperWindows(2.6, 2.2, false)
-      signBand()
-    }
+    upperWindows(2.6, 2.2, false)
+    signBand()
   }
 
   return boxes

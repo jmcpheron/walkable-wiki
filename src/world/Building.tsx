@@ -59,7 +59,7 @@ export function Building({
       <Text
         position={[0, (exterior.signY ?? 5.5) * VOXEL, (d / 2) * VOXEL + 0.3]}
         fontSize={signFontSize(exterior.signText ?? manifest.name, w)}
-        color="#2b2620"
+        color={exterior.signColor ?? '#2b2620'}
         anchorX="center"
         anchorY="middle"
         whiteSpace="nowrap"

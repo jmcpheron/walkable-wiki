@@ -9,53 +9,156 @@
     "size": [
       12,
       10,
-      12
+      16
     ],
-    "style": "victorian",
-    "scheme": "seafoam",
+    "style": "shopfront",
+    "scheme": "chartreuse",
     "signText": "BOB'S BURGERS",
-    "signY": 5.2,
+    "signY": 6.9,
+    "signColor": "#f6cf47",
     "door": {
-      "offsetX": 0,
-      "width": 2
+      "offsetX": 3.1,
+      "width": 2.2
     },
     "features": [
-      {
-        "type": "doorway",
-        "x": 0,
-        "kind": "shop"
-      },
-      {
-        "type": "doorway",
-        "x": -4.8,
-        "kind": "apartment"
-      },
-      {
-        "type": "retail-window",
-        "from": -3.3,
-        "to": -1.6
-      },
-      {
-        "type": "retail-window",
-        "from": 1.6,
-        "to": 5.3
-      },
-      {
-        "type": "awning",
-        "from": -5.6,
-        "to": 5.6
-      },
-      {
-        "type": "bay-window",
-        "x": 0,
-        "floor": 1,
-        "width": 5
-      },
       {
         "type": "conduit",
         "face": "right",
         "x": 1.5
       }
-    ]
+    ],
+    "facade": {
+      "resolution": 4,
+      "legend": {
+        "T": {
+          "color": "#55622e",
+          "depth": 1
+        },
+        "F": {
+          "color": "#4a5527",
+          "depth": 1
+        },
+        "w": {
+          "color": "#a6c8dc",
+          "depth": 0
+        },
+        "W": {
+          "color": "#b8d9e8",
+          "depth": 0
+        },
+        "t": {
+          "color": "#b8d9e8",
+          "depth": 0
+        },
+        "k": {
+          "color": "#b8d9e8",
+          "depth": 0
+        },
+        "R": {
+          "color": "#c0272d",
+          "depth": 1
+        },
+        "Y": {
+          "color": "#f4c53d",
+          "depth": 1
+        },
+        "B": {
+          "color": "#57512d",
+          "depth": 1
+        },
+        "d": {
+          "color": "#7a4a2b",
+          "depth": 0
+        },
+        "D": {
+          "color": "#5d3a24",
+          "depth": 0
+        },
+        "L": {
+          "color": "#55622e",
+          "depth": 2
+        },
+        "C": {
+          "color": "#55622e",
+          "depth": 3
+        },
+        "c": {
+          "color": "#8a9440",
+          "depth": 2
+        }
+      },
+      "rows": [
+        "  TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
+        "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+        "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+        "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+        "ccCCccCCccCCccCCccCCccCCccCCccCCccCCccCCccCCccCC",
+        "ccCCccCCccCCccCCccCCccCCccCCccCCccCCccCCccCCccCC",
+        " ",
+        " ",
+        "       FFFFFFFFFF  FFFFFFFFFF  FFFFFFFFFF",
+        "       FwwwwwwwwF  FwwwwwwwwF  FwwwwwwwwF",
+        "       FwwwwwwwwF  FwwwwwwwwF  FwwwwwwwwF",
+        "       FwwwwwwwwF  FwwwwwwwwF  FwwwwwwwwF",
+        "       FwwwwwwwwF  FwwwwwwwwF  FwwwwwwwwF",
+        "       FwwwwwwwwF  FwwwwwwwwF  FwwwwwwwwF",
+        "       FwwwwwwwwF  FwwwwwwwwF  FwwwwwwwwF",
+        "       FwwwwwwwwF  FwwwwwwwwF  FwwwwwwwwF",
+        "       FwwwwwwwwF  FwwwwwwwwF  FwwwwwwwwF",
+        "       FwwwwwwwwF  FwwwwwwwwF  FwwwwwwwwF",
+        "       FwwwwwwwwF  FwwwwwwwwF  FwwwwwwwwF",
+        "       FwwwwwwwwF  FwwwwwwwwF  FwwwwwwwwF",
+        "       FFFFFFFFFF  FFFFFFFFFF  FFFFFFFFFF",
+        "       TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
+        "       TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
+        "       FwwwwwwwwF  FwwwwwwwwF  FwwwwwwwwF",
+        "       FwwwwwwwwF  FwwwwwwwwF  FwwwwwwwwF",
+        "       FwwwwwwwwF  FwwwwwwwwF  FwwwwwwwwF",
+        "       FwwwwwwwwF  FwwwwwwwwF  FwwwwwwwwF",
+        "       FwwwwwwwwF  FwwwwwwwwF  FwwwwwwwwF",
+        "       FwwwwwwwwF  FwwwwwwwwF  FwwwwwwwwF",
+        "       FwwwwwwwwF  FwwwwwwwwF  FwwwwwwwwF",
+        "       FwwwwwwwwF  FwwwwwwwwF  FwwwwwwwwF",
+        "       FwwwwwwwwF  FwwwwwwwwF  FwwwwwwwwF",
+        "       FwwwwwwwwF  FwwwwwwwwF  FwwwwwwwwF",
+        "       FwwwwwwwwF  FwwwwwwwwF  FwwwwwwwwF",
+        "       FFFFFFFFFF  FFFFFFFFFF  FFFFFFFFFF",
+        "       TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
+        "       TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
+        "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL",
+        "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY",
+        "YYRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRYY",
+        "YYRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRYY",
+        "YYRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRYY",
+        "YYRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRYY",
+        "YYRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRYY",
+        "YYRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRYY",
+        "YYRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRYY",
+        "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY",
+        "TT        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFTT",
+        "TTFFFFFFFFFttttttttttttttttttttttttttttttttttFTT",
+        "TTFttttttFFttttttttttttttttttttttttttttttttttFTT",
+        "TTFttttttFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFTT",
+        "TTFttttttFFWWWWWWWWWWWWWWWWWWWFFFFFFFFFFFFFFFFTT",
+        "TTFFFFFFFFFWWWWWWWWWWWWWWWWWWWFFdddddddddFFFFFTT",
+        "TTFDDDDDDFFWWWWWWWWWWWWWWWWWWWFFdkkkkkkkdFFFFFTT",
+        "TTFDDDDDDFFWWWWWWWWWWWWWWWWWWWFFdkkkkkkkdFFFFFTT",
+        "TTFDDDDDDFFWWWWWWWWWWWWWWWWWWWFFdkkkkkkkdFFFFFTT",
+        "TTFDDDDDDFFWWWWWWWWWWWWWWWWWWWFFdkkkkkkkdFFFFFTT",
+        "TTFDDkkDDFFWWWWWWWWWWWWWWWWWWWFFdkkkkkkkdFFFFFTT",
+        "TTFDDkkDDFFWWWWWWWWWWWWWWWWWWWFFdkkkkkkkdFFFFFTT",
+        "TTFDDkkDDFFWWWWWWWWWWWWWWWWWWWFFdkkkkkkkdFFFFFTT",
+        "TTFDDDDDDFFWWWWWWWWWWWWWWWWWWWFFdkkkkkkkdFFFFFTT",
+        "TTFDDDDDDFFWWWWWWWWWWWWWWWWWWWFFdkkkkkkkdFFFFFTT",
+        "TTFDDDDDDFFWWWWWWWWWWWWWWWWWWWFFdddddddddFFFFFTT",
+        "TTFDDDDDDFFWWWWWWWWWWWWWWWWWWWFFdddddddddFFFFFTT",
+        "TTFDDDDDDFFFFFFFFFFFFFFFFFFFFFFFdddddddddFFFFFTT",
+        "TTFDDDDDDFFBBBBBBBBBBBBBBBBBBBFFdddddddddBBBBFTT",
+        "TTFDDDDDDFFBBBBBBBBBBBBBBBBBBBFFdddddddddBBBBFTT",
+        "TTFDDDDDDFFBBBBBBBBBBBBBBBBBBBFFdddddddddBBBBFTT",
+        "TTFDDDDDDFFBBBBBBBBBBBBBBBBBBBFFdddddddddBBBBFTT",
+        "TTFDDDDDDFFBBBBBBBBBBBBBBBBBBBFFdddddddddBBBBFTT"
+      ]
+    }
   }
 }
