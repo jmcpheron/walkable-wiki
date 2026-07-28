@@ -18,6 +18,8 @@ home next door).
 - **Click** — open a building's or character's wiki panel (Esc or × closes)
 - **⟲ Other side** — swing the camera 180° to face the far side's storefronts
 - **📺 Episodes** — play an episode as a route across the map
+- **🧱 Editor** (`#/editor`) — paint a building's front facade on a half-voxel grid
+  with a live 3D preview, then copy the JSON into the location's manifest via PR
 
 ## Development
 
@@ -41,7 +43,10 @@ workflow in `.github/workflows/deploy.yml`, and works on Vercel with zero config
 The world is data, not code — everything on screen is generated from JSON manifests:
 
 - `content/locations/<slug>/manifest.json` — a building: voxel size, palette,
-  awning/window/sign parameters, wiki text
+  awning/window/sign parameters, wiki text — plus an optional hand-painted
+  `facade`: ASCII-art rows at half-voxel resolution with a `char → {color, depth}`
+  legend (rows above the wall height shape the roofline; Bob's Victorian gable is
+  drawn this way). Facades are easiest to make in the in-browser editor.
 - `content/street.json` — where buildings sit on the street
 - `content/characters/<slug>/manifest.json` — a clickable character standing in
   front of a location

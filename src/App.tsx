@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { useStore } from './engine/store'
 import { hashFor, initialRouteFromHash, parseHash } from './engine/router'
@@ -10,8 +10,16 @@ import { RouteCaption } from './ui/RouteCaption'
 import { BootOverlay } from './ui/BootOverlay'
 import { ControlsHint } from './ui/ControlsHint'
 import { Disclaimer } from './ui/Disclaimer'
+import { FacadeEditor } from './editor/FacadeEditor'
 
 export default function App() {
+  const [editorMode, setEditorMode] = useState(window.location.hash === '#/editor')
+  useEffect(() => {
+    const onHash = () => setEditorMode(window.location.hash === '#/editor')
+    window.addEventListener('hashchange', onHash)
+    return () => window.removeEventListener('hashchange', onHash)
+  }, [])
+
   // Deep links: apply the initial #/loc|char|ep route, mirror selection back to the
   // hash, and follow external hash edits (back button, pasted links).
   useEffect(() => {
@@ -40,6 +48,8 @@ export default function App() {
       window.removeEventListener('hashchange', onHashChange)
     }
   }, [])
+
+  if (editorMode) return <FacadeEditor />
 
   return (
     <>

@@ -24,13 +24,48 @@ export const buildingPalette = z.object({
 })
 export type BuildingPalette = z.infer<typeof buildingPalette>
 
+// Hand-painted front facade at HALF-voxel resolution (2 cells per voxel).
+// rows are top-to-bottom strings, drawn as seen from the street; legend maps each
+// character to a color and a proudness depth (0 = flush panel, 1 = trim, 2 =
+// cornice, 3 = awning...). ' ' and '.' are empty — rows above the wall height
+// with cells form the shaped roofline (gables, parapets).
+export const facadeDef = z
+  .object({
+    legend: z.record(
+      z.string(),
+      z.object({
+        color: z.string(),
+        depth: z.number().int().min(-1).max(4).default(0),
+      })
+    ),
+    rows: z.array(z.string()).min(1),
+  })
+  .superRefine((facade, ctx) => {
+    for (const key of Object.keys(facade.legend)) {
+      if (key.length !== 1) ctx.addIssue({ code: 'custom', message: `legend key "${key}" must be a single character` })
+    }
+    for (const [i, row] of facade.rows.entries()) {
+      for (const ch of row) {
+        if (ch !== ' ' && ch !== '.' && !facade.legend[ch]) {
+          ctx.addIssue({ code: 'custom', message: `row ${i} uses "${ch}" which is not in the legend` })
+        }
+      }
+    }
+  })
+export type FacadeDef = z.infer<typeof facadeDef>
+
 export const exteriorDef = z.object({
   // [width, depth, height] in voxels (1 voxel = 0.5 world units)
   size: z.tuple([z.number().int().min(4), z.number().int().min(4), z.number().int().min(6)]),
   palette: buildingPalette,
   signText: z.string().optional(), // defaults to the location name
+  signY: z.number().optional(), // sign-text height in voxels (default 5.5)
   windows: z.object({ rows: z.number().int().min(0), cols: z.number().int().min(0) }).optional(),
   awning: z.boolean().default(false),
+  // When present, replaces ALL parametric front-face features (windows, door
+  // slab, sign band, awning) with the hand-painted grid. Structure (shell,
+  // roof, sides) stays parametric; door.offsetX still drives doorstep layout.
+  facade: facadeDef.optional(),
   door: z
     .object({
       offsetX: z.number().int().default(0), // voxels from front-face center

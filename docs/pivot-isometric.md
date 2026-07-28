@@ -37,6 +37,20 @@ walking characters — rather than a first-person walkable world.
 - Ambient walkers derive lanes/extent from `street.json` via `src/world/layout.ts` —
   the single source of derived street geometry.
 
+## Facade format + editor (added same day)
+
+- Locations may carry `exterior.facade`: ASCII rows (top-to-bottom, drawn as seen
+  from the street) + a `char → {color, depth}` legend, at **2 cells per voxel**.
+  Depth is proudness in quarter-voxels (trim 1, cornice 2, awning 3). Rows above
+  the wall height become the shaped roofline — Bob's Victorian gable is grid rows.
+  A facade replaces all parametric front-face features; structure stays parametric,
+  and `door.offsetX` still drives doorstep/route layout.
+- `#/editor` is an in-browser facade painter (grid + palette + live 3D preview +
+  copy/import JSON, localStorage autosave). Export is pasted into a manifest and
+  PR'd — no server, the repo remains the moderation queue.
+- Street order corrected to canon: funeral home left of Bob's, the perpetually
+  for-lease gag storefront right, Jimmy Pesto's directly across.
+
 ## Known debts / next
 
 - drei `<Text>` (troika) still fetches its font at runtime; bundle a font later.

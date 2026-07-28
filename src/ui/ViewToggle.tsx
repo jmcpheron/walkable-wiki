@@ -5,8 +5,17 @@ import { useStore } from '../engine/store'
 export function ViewToggle() {
   const toggleView = useStore((s) => s.toggleView)
   return (
-    <button className="view-toggle" onClick={toggleView} title="Look at the other side of the street">
-      ⟲ Other side
-    </button>
+    <div className="corner-buttons">
+      <a className="corner-button" href="#/editor" title="Paint a building facade">
+        🧱 Editor
+      </a>
+      <button
+        className="corner-button"
+        onClick={toggleView}
+        title="Look at the other side of the street"
+      >
+        ⟲ Other side
+      </button>
+    </div>
   )
 }

@@ -1,5 +1,7 @@
-import type { ExteriorDef } from '../engine/manifest'
+import type { ExteriorDef, FacadeDef } from '../engine/manifest'
 import type { VoxelBox } from '../engine/voxel'
+
+const CELL = 0.5 // facade resolution: half a voxel per grid cell
 
 // Pure function: manifest exterior spec → voxel box list. Building-local coords:
 // x centered, y up from 0, z centered with the storefront at +d/2. All the visual
@@ -18,6 +20,18 @@ export function buildingBoxes(exterior: ExteriorDef): VoxelBox[] {
 
   // wall shell
   boxes.push({ min: [-w / 2, 0, -d / 2], size: [w, h, d], color: p.wall })
+
+  if (exterior.facade) {
+    // Hand-painted front: the grid replaces every parametric front-face feature.
+    boxes.push(...facadeBoxes(exterior.facade, w, h, d))
+    // roof + parapet on the other three sides only (the facade owns the front line)
+    boxes.push({ min: [-w / 2, h, -d / 2], size: [w, 1, 1], color: p.trim })
+    boxes.push({ min: [-w / 2, h, -d / 2 + 1], size: [1, 1, d - 1], color: p.trim })
+    boxes.push({ min: [w / 2 - 1, h, -d / 2 + 1], size: [1, 1, d - 1], color: p.trim })
+    boxes.push({ min: [-w / 2 + 1, h, -d / 2 + 1], size: [w - 2, 0.4, d - 1.2], color: p.roof })
+    boxes.push({ min: [w / 2 - 4.5, h + 0.4, -d / 2 + 2], size: [3, 1.4, 2], color: p.trim })
+    return boxes
+  }
 
   // parapet ring + inset flat roof (the SimCity flat-top)
   boxes.push({ min: [-w / 2, h, -d / 2], size: [w, 1, 1], color: p.trim })
@@ -74,5 +88,38 @@ export function buildingBoxes(exterior: ExteriorDef): VoxelBox[] {
     }
   }
 
+  return boxes
+}
+
+// Facade grid → boxes. Bottom row sits at ground level; rows above the wall top
+// (h voxels) become the shaped roofline and get a full-voxel thickness so gables
+// read from the side. Consecutive same-character cells merge into one box per run.
+function facadeBoxes(facade: FacadeDef, w: number, h: number, d: number): VoxelBox[] {
+  const boxes: VoxelBox[] = []
+  const rowCount = facade.rows.length
+  for (let r = 0; r < rowCount; r++) {
+    const row = facade.rows[r]
+    const y = (rowCount - 1 - r) * CELL // bottom of this row, in voxels
+    const aboveWall = y >= h
+    let c = 0
+    while (c < row.length) {
+      const ch = row[c]
+      if (ch === ' ' || ch === '.' || !facade.legend[ch]) {
+        c++
+        continue
+      }
+      let run = 1
+      while (c + run < row.length && row[c + run] === ch) run++
+      const { color, depth } = facade.legend[ch]
+      const x = -w / 2 + c * CELL
+      const proud = 0.25 + depth * 0.25
+      boxes.push(
+        aboveWall
+          ? { min: [x, y, d / 2 - 1], size: [run * CELL, CELL, 1 + proud], color }
+          : { min: [x, y, d / 2], size: [run * CELL, CELL, proud], color }
+      )
+      c += run
+    }
+  }
   return boxes
 }
