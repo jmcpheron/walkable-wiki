@@ -132,6 +132,36 @@ export function featureBoxes(
       break
     }
 
+    case 'dumpster': {
+      const { side, x } = feature
+      const BODY_W = 3.6
+      const BODY_H = 1.5
+      const BODY_D = 1.8
+      const GREEN = '#3f5a3c'
+      const LID = '#324a30'
+      const DARK = '#26302a'
+      // axis-aligned placement against the chosen wall, sitting just off it
+      const along = x - BODY_W / 2
+      const emit = (ax: number, ay: number, az: number, sx: number, sy: number, sz: number, color: string) => {
+        if (side === 'back') boxes.push({ min: [along + ax, ay, -d / 2 - 0.4 - BODY_D + az], size: [sx, sy, sz], color })
+        else if (side === 'right') boxes.push({ min: [w / 2 + 0.4 + az, ay, along + ax], size: [sz, sy, sx], color })
+        else boxes.push({ min: [-w / 2 - 0.4 - BODY_D + az, ay, along + ax], size: [sz, sy, sx], color })
+      }
+      emit(0, 0.35, 0, BODY_W, BODY_H, BODY_D, GREEN) // body
+      emit(-0.15, 1.1, -0.1, 0.15, 0.5, BODY_D + 0.2, GREEN) // side pockets
+      emit(BODY_W, 1.1, -0.1, 0.15, 0.5, BODY_D + 0.2, GREEN)
+      emit(0.1, 1.85, 0, BODY_W / 2 - 0.15, 0.14, BODY_D - 0.1, LID) // closed lid half
+      emit(BODY_W / 2 + 0.05, 1.95, 0.35, BODY_W / 2 - 0.15, 0.14, BODY_D - 0.45, LID) // ajar lid half
+      emit(BODY_W / 2 + 0.05, 1.6, 0.05, BODY_W / 2 - 0.15, 0.35, 0.3, DARK) // gap under ajar lid
+      for (const wx of [0.3, BODY_W - 0.55]) {
+        emit(wx, 0, 0.2, 0.35, 0.35, 0.35, DARK) // wheels
+        emit(wx, 0, BODY_D - 0.55, 0.35, 0.35, 0.35, DARK)
+      }
+      emit(-0.75, 0, 0.3, 0.7, 0.6, 0.7, '#4a4438') // trash bag beside it
+      emit(-0.7, 0.55, 0.4, 0.45, 0.3, 0.45, '#54503f')
+      break
+    }
+
     case 'conduit': {
       const { face, x } = feature
       const PIPE = 0.16

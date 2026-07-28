@@ -75,6 +75,14 @@ const FEATURE_META: Record<FeatureDef['type'], { label: string; fields: Field[];
     ],
     defaults: { from: -4, to: 4 } as never,
   },
+  dumpster: {
+    label: '🗑 Dumpster',
+    fields: [
+      { key: 'side', kind: 'select', options: ['back', 'left', 'right'] },
+      { key: 'x', kind: 'number', step: 0.5 },
+    ],
+    defaults: { side: 'back', x: 0 } as never,
+  },
 }
 
 interface BuildState {

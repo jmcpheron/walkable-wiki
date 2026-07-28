@@ -77,6 +77,12 @@ export const featureDef = z.discriminatedUnion('type', [
     from: z.number(),
     to: z.number(),
   }),
+  // alley furniture: a dumpster against a wall (back = the flip-view reward)
+  z.object({
+    type: z.literal('dumpster'),
+    side: z.enum(['back', 'left', 'right']).default('back'),
+    x: z.number().default(0), // along the chosen wall
+  }),
 ])
 export type FeatureDef = z.infer<typeof featureDef>
 

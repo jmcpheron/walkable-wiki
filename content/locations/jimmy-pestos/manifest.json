@@ -12,38 +12,123 @@
       12
     ],
     "style": "shopfront",
-    "scheme": "pesto",
+    "scheme": "orchid",
     "signText": "JIMMY PESTO'S",
+    "signY": 5.8,
+    "signColor": "#8c2f33",
     "door": {
       "offsetX": 0,
-      "width": 2
+      "width": 3
     },
     "features": [
-      {
-        "type": "doorway",
-        "x": 0,
-        "kind": "shop"
-      },
-      {
-        "type": "retail-window",
-        "from": -6.8,
-        "to": -1.8
-      },
-      {
-        "type": "retail-window",
-        "from": 1.8,
-        "to": 6.8
-      },
-      {
-        "type": "awning",
-        "from": -7.4,
-        "to": 7.4
-      },
       {
         "type": "conduit",
         "face": "left",
         "x": 2
       }
-    ]
+    ],
+    "facade": {
+      "resolution": 4,
+      "legend": {
+        "T": {
+          "color": "#f0edf4",
+          "depth": 1
+        },
+        "F": {
+          "color": "#ffffff",
+          "depth": 1
+        },
+        "P": {
+          "color": "#efe9dc",
+          "depth": 0
+        },
+        "G": {
+          "color": "#5d7a5a",
+          "depth": 1
+        },
+        "g": {
+          "color": "#3f7d4a",
+          "depth": 2
+        },
+        "B": {
+          "color": "#8a6a4a",
+          "depth": 2
+        },
+        "w": {
+          "color": "#cdd8e6",
+          "depth": 0
+        },
+        "k": {
+          "color": "#c2d2e0",
+          "depth": 0
+        },
+        "a": {
+          "color": "#b8c4a8",
+          "depth": 2
+        },
+        "r": {
+          "color": "#a33b3f",
+          "depth": 3
+        },
+        "V": {
+          "color": "#f4f1e8",
+          "depth": 3
+        }
+      },
+      "rows": [
+        "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
+        "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
+        "TTVVTTVVTTVVTTVVTTVVTTVVTTVVTTVVTTVVTTVVTTVVTTVVTTVVTTVVTTVVTTVV",
+        "TTVVTTVVTTVVTTVVTTVVTTVVTTVVTTVVTTVVTTVVTTVVTTVVTTVVTTVVTTVVTTVV",
+        " ",
+        " ",
+        " ",
+        "    FFFFFFFFFFFF   FFFFFFFFFFF   FFFFFFFFFFFF   FFFFFFFFFFF",
+        "    FFwwwwwwwwwF   FwwwwwwwwwF   FwwwwwwwwwwF   FwwwwwwwwwF",
+        "    FFwwwwwwwwwF   FwwwwwwwwwF   FwwwwwwwwwwF   FwwwwwwwwwF",
+        "    FFwwwwwwwwwF   FwwwwwwwwwF   FwwwwwwwwwwF   FwwwwwwwwwF",
+        "    FFwwwwwwwwwF   FwwwwwwwwwF   FwwwwwwwwwwF   FwwwwwwwwwF",
+        "    FFwwwwwwwwwF   FwwwwwwwwwF   FwwwwwwwwwwF   FwwwwwwwwwF",
+        "    FFwwwwwwwwwF   FwwwwwwwwwF   FwwwwwwwwwwF   FwwwwwwwwwF",
+        "    FFwwwwwwwwwF   FwwwwwwwwwF   FwwwwwwwwwwF   FwwwwwwwwwF",
+        "    FFwwwwwwwwwF   FwwwwwwwwwF   FwwwwwwwwwwF   FwwwwwwwwwF",
+        "    FFwwwwwwwwwF   FwwwwwwwwwF   FwwwwwwwwwwF   FwwwwwwwwwF",
+        "    FFwwwwwwwwwF   FwwwwwwwwwF   FwwwwwwwwwwF   FwwwwwwwwwF",
+        "    FFwwwwwwwwwF   FwwwwwwwwwF   FwwwwwwwwwwF   FwwwwwwwwwF",
+        "    FFFFFFFFFFFF   FFFFFFFFFFF   FFFFFFFFFFFF   FFFFFFFFFFF",
+        "    TTTTTTTTTTTTT TTTTTTTTTTTTT  TTTTTTTTTTTT  TTTTTTTTTTTTT",
+        " ",
+        " ",
+        "rrrrVVVrrrVVVrrrVVVVrrrVVVrrrVVVrrrrVVVrrrVVVrrrVVVVrrrVVVrrrVVV",
+        "rrrrVVVrrrVVVrrrVVVVrrrVVVrrrVVVrrrrVVVrrrVVVrrrVVVVrrrVVVrrrVVV",
+        "rrrrVVVrrrVVVrrrVVVVrrrVVVrrrVVVrrrrVVVrrrVVVrrrVVVVrrrVVVrrrVVV",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        " aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa",
+        " aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa",
+        "PPFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFPP",
+        "PPFwwwwwFwwwwFwwwwwFwwwwwFFFFFFFFFFFFFFwwwwwFwwwwFwwwwwFwwwwwFPP",
+        "PPFwwwwwFwwwwFwwwwwFwwwwwFFkkkkkkkkkkFFwwwwwFwwwwFwwwwwFwwwwwFPP",
+        "PPFwwwwwFwwwwFwwwwwFwwwwwFFkkkkkkkkkkFFwwwwwFwwwwFwwwwwFwwwwwFPP",
+        "PPFwwwwwFwwwwFwwwwwFwwwwwFFkkkkkkkkkkFFwwwwwFwwwwFwwwwwFwwwwwFPP",
+        "PPFwwwwwFwwwwFwwwwwFwwwwwFFkkkkkkkkkkFFwwwwwFwwwwFwwwwwFwwwwwFPP",
+        "PPFwwwwwFwwwwFwwwwwFwwwwwFFkkkkkkkkkkFFwwwwwFwwwwFwwwwwFwwwwwFPP",
+        "PPFwwwwwFwwwwFwwwwwFwwwwwFFkkkkkkkkkkFFwwwwwFwwwwFwwwwwFwwwwwFPP",
+        "PPFwwwwwFwwwwFwwwwwFwwwwwFFkkkkkkkkkkFFwwwwwFwwwwFwwwwwFwwwwwFPP",
+        "PPFwwwwwFwwwwFwwwwwFwwwwwFFkkkkkkkkkkFFwwwwwFwwwwFwwwwwFwwwwwFPP",
+        "PPFwwwwwFwwwwFwwwwwFwwwwwFFkkkkkkkkkkFFwwwwwFwwwwFwwwwwFwwwwwFPP",
+        "PPFwwwwwFwwwwFwwwwwFwwwwwFFkkkkkkkkkkFFwwwwwFwwwwFwwwwwFwwwwwFPP",
+        "PPFwwwwwFwwwwFwwwwwFwwgggFFkkkkkkkkkkFFwwgggFwwwwFwwwwwFwwwwwFPP",
+        "PPFFFFFFFFFFFFFFFFFFFFgggFFkkkkkkkkkkFFFFgggFFFFFFFFFFFFFFFFFFPP",
+        "GGGGGGGGGGGGGGGGGGGGGGgggFFkkkkkkkkkkFFGGgggGGGGGGGGGGGGGGGGGGGG",
+        "GGGGGGGGGGGGGGGGGGGGGGgggFFkkkkkkkkkkFFGGgggGGGGGGGGGGGGGGGGGGGG",
+        "GGGGGGGGGGGGGGGGGGGGGGBBBFFGGGGGGGGGGFFGGBBBGGGGGGGGGGGGGGGGGGGG",
+        "GGGGGGGGGGGGGGGGGGGGGGBBBFFGGGGGGGGGGFFGGBBBGGGGGGGGGGGGGGGGGGGG"
+      ]
+    }
   }
 }

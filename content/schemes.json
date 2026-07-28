@@ -1,6 +1,9 @@
 {
   "plaster": { "wall": "#c9bfa8", "trim": "#8f8677", "accent": "#7d7466", "glass": "#a9b8bd", "door": "#6e6354", "roof": "#7d7466", "metal": "#3f434a", "sign": "#ddd6c4" },
   "chartreuse": { "wall": "#b3bb4a", "trim": "#55622e", "accent": "#4a5527", "glass": "#b8d9e8", "door": "#5d3a24", "roof": "#6b6f3a", "metal": "#41454b", "sign": "#c0272d" },
+  "harbor": { "wall": "#5f7a99", "trim": "#e6ecf2", "accent": "#2e3f52", "glass": "#cfdae4", "door": "#232f3d", "roof": "#46586b", "metal": "#33373d", "sign": "#1f2c3a" },
+  "tangerine": { "wall": "#c9964f", "trim": "#efe3c8", "accent": "#8f6b33", "glass": "#b9c6cc", "door": "#6e5030", "roof": "#8a6a3a", "metal": "#4a4e54", "sign": "#e8dcc0" },
+  "orchid": { "wall": "#a89ab8", "trim": "#f0edf4", "accent": "#6b5f7d", "glass": "#cdd8e6", "door": "#4f4560", "roof": "#7d7291", "metal": "#41454b", "sign": "#b8c4a8" },
   "seafoam": { "wall": "#a9b489", "trim": "#f0e6c8", "accent": "#3e7d5a", "glass": "#bcd9e8", "door": "#2e5d46", "roof": "#8a4f42", "metal": "#41454b", "sign": "#f5efdc" },
   "slate": { "wall": "#6b7a8f", "trim": "#c9d2dc", "accent": "#414b57", "glass": "#8fa7bb", "door": "#2f3742", "roof": "#414b57", "metal": "#33373d", "sign": "#dfe6ee" },
   "pesto": { "wall": "#b03a48", "trim": "#f0ede4", "accent": "#2e6e4e", "glass": "#9fc3d9", "door": "#4a3327", "roof": "#6e2a34", "metal": "#3a3d42", "sign": "#ffffff" },

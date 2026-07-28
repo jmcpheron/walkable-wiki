@@ -57,7 +57,8 @@ export function Building({
     <group position={[position[0], 0, position[1]]} rotation-y={(rotationY * Math.PI) / 180}>
       <mesh geometry={geometry} material={material} raycast={() => null} />
       <Text
-        position={[0, (exterior.signY ?? 5.5) * VOXEL, (d / 2) * VOXEL + 0.3]}
+        // 0.5 clears the deepest facade panels (depth 3 ≈ 1 voxel proud)
+        position={[0, (exterior.signY ?? 5.5) * VOXEL, (d / 2) * VOXEL + 0.52]}
         fontSize={signFontSize(exterior.signText ?? manifest.name, w)}
         color={exterior.signColor ?? '#2b2620'}
         anchorX="center"

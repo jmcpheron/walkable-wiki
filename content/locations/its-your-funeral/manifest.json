@@ -9,41 +9,122 @@
     "size": [
       14,
       12,
-      10
+      14
     ],
     "style": "brick",
-    "scheme": "slate",
+    "scheme": "harbor",
     "signText": "IT'S YOUR FUNERAL",
+    "signY": 6.55,
+    "signColor": "#eef2f7",
     "door": {
       "offsetX": 0,
-      "width": 2
+      "width": 3
     },
     "features": [
-      {
-        "type": "doorway",
-        "x": 0,
-        "kind": "apartment"
-      },
-      {
-        "type": "retail-window",
-        "from": -5.5,
-        "to": -1.8
-      },
-      {
-        "type": "retail-window",
-        "from": 1.8,
-        "to": 5.5
-      },
-      {
-        "type": "fire-escape",
-        "x": 3.2,
-        "width": 4
-      },
       {
         "type": "conduit",
         "face": "left",
         "x": 1
       }
-    ]
+    ],
+    "facade": {
+      "resolution": 4,
+      "legend": {
+        "T": {
+          "color": "#e6ecf2",
+          "depth": 1
+        },
+        "F": {
+          "color": "#dfe6ee",
+          "depth": 1
+        },
+        "A": {
+          "color": "#2e3f52",
+          "depth": 1
+        },
+        "N": {
+          "color": "#1f2c3a",
+          "depth": 2
+        },
+        "w": {
+          "color": "#cfdae4",
+          "depth": 0
+        },
+        "u": {
+          "color": "#aebdca",
+          "depth": 0
+        },
+        "k": {
+          "color": "#b9c9d6",
+          "depth": 0
+        },
+        "D": {
+          "color": "#232f3d",
+          "depth": 0
+        }
+      },
+      "rows": [
+        "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
+        "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
+        "TTAATTAATTAATTAATTAATTAATTAATTAATTAATTAATTAATTAATTAATTAA",
+        "TTAATTAATTAATTAATTAATTAATTAATTAATTAATTAATTAATTAATTAATTAA",
+        "TT                                                    TT",
+        "TT     FFFFFFFFFF      FFFFFFFFFF      FFFFFFFFFF     TT",
+        "TT     FwwwwwwwwF      FwwwwwwwwF      FwwwwwwwwF     TT",
+        "TT     FwwwwwwwwF      FwwwwwwwwF      FwwwwwwwwF     TT",
+        "TT     FwwwwwwwwF      FwwwwwwwwF      FwwwwwwwwF     TT",
+        "TT     FwwwwwwwwF      FwwwwwwwwF      FwwwwwwwwF     TT",
+        "TT     FwwwwwwwwF      FwwwwwwwwF      FwwwwwwwwF     TT",
+        "TT     FwwwwwwwwF      FwwwwwwwwF      FwwwwwwwwF     TT",
+        "TT     FwwwwwwwwF      FwwwwwwwwF      FwwwwwwwwF     TT",
+        "TT     FwwwwwwwwF      FwwwwwwwwF      FwwwwwwwwF     TT",
+        "TT     FwwwwwwwwF      FwwwwwwwwF      FwwwwwwwwF     TT",
+        "TT     FFFFFFFFFF      FFFFFFFFFF      FFFFFFFFFF     TT",
+        "TT     TTTTTTTTTTT    TTTTTTTTTTTT    TTTTTTTTTTT     TT",
+        "TT     FFFFFFFFFF      FFFFFFFFFF      FFFFFFFFFF     TT",
+        "TT     FwwwwwwwwF      FwwwwwwwwF      FwwwwwwwwF     TT",
+        "TT     FwwwwwwwwF      FwwwwwwwwF      FwwwwwwwwF     TT",
+        "TT     FwwwwwwwwF      FwwwwwwwwF      FwwwwwwwwF     TT",
+        "TT     FwwwwwwwwF      FwwwwwwwwF      FwwwwwwwwF     TT",
+        "TT     FwwwwwwwwF      FwwwwwwwwF      FwwwwwwwwF     TT",
+        "TT     FwwwwwwwwF      FwwwwwwwwF      FwwwwwwwwF     TT",
+        "TT     FwwwwwwwwF      FwwwwwwwwF      FwwwwwwwwF     TT",
+        "TT     FwwwwwwwwF      FwwwwwwwwF      FwwwwwwwwF     TT",
+        "TT     FwwwwwwwwF      FwwwwwwwwF      FwwwwwwwwF     TT",
+        "TT     FFFFFFFFFF      FFFFFFFFFF      FFFFFFFFFF     TT",
+        "TT     TTTTTTTTTTT    TTTTTTTTTTTT    TTTTTTTTTTT     TT",
+        "TT                                                    TT",
+        "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
+        "TTNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNTT",
+        "TTNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNTT",
+        "TTNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNTT",
+        "TTNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNTT",
+        "TTNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNTT",
+        "TTNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNTT",
+        "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
+        "TT                NNNNNNNNNNNNNNNNNNNN                TT",
+        "TT                NNNNNNNNNNNNNNNNNNNN                TT",
+        "TT                 FFFFFFFFFFFFFFFFFF                 TT",
+        "TT FFFFFFFFFFFFFFF FFFFFFFFFFFFFFFFFF FFFFFFFFFFFFFFF TT",
+        "TT FuuuuuuuuuuuuuF FFFDDDDDDDDDDDDFFF FuuuuuuuuuuuuuF TT",
+        "TT FuuuuuuuuuuuuuF FFFDDDDDDDDDDDDFFF FuuuuuuuuuuuuuF TT",
+        "TT FuuuuuuuuuuuuuF FFFDDDDDDDDDDDDFFF FuuuuuuuuuuuuuF TT",
+        "TT FuuuuuuuuuuuuuF FFFDDDDDDDDDDDDFFF FuuuuuuuuuuuuuF TT",
+        "TT FwwwwwwwwwwwwwF FFFDkkkDDDDkkkDFFF FwwwwwwwwwwwwwF TT",
+        "TT FwwwwwwwwwwwwwF FFFDkkkDDDDkkkDFFF FwwwwwwwwwwwwwF TT",
+        "TT FwwwwwwwwwwwwwF FFFDkkkDDDDkkkDFFF FwwwwwwwwwwwwwF TT",
+        "TT FwwwwwwwwwwwwwF FFFDkkkDDDDkkkDFFF FwwwwwwwwwwwwwF TT",
+        "TT FwwwwwwwwwwwwwF FFFDkkkDDDDkkkDFFF FwwwwwwwwwwwwwF TT",
+        "TT FwwwwwwwwwwwwwF FFFDkkkDDDDkkkDFFF FwwwwwwwwwwwwwF TT",
+        "TT FwwwwwwwwwwwwwF FFFDDDDDDDDDDDDFFF FwwwwwwwwwwwwwF TT",
+        "TT FwwwwwwwwwwwwwF FFFDDDDDDDDDDDDFFF FwwwwwwwwwwwwwF TT",
+        "TT FwwwwwwwwwwwwwF FFFDDDDDDDDDDDDFFF FwwwwwwwwwwwwwF TT",
+        "TT FwwwwwwwwwwwwwF FFFDDDDDDDDDDDDFFF FwwwwwwwwwwwwwF TT",
+        "TT FFFFFFFFFFFFFFF FFFDDDDDDDDDDDDFFF FFFFFFFFFFFFFFF TT",
+        "TTAAAAAAAAAAAAAAAAAFFFDDDDDDDDDDDDFFFAAAAAAAAAAAAAAAAATT",
+        "TTAAAAAAAAAAAAAAAAAFFFDDDDDDDDDDDDFFFAAAAAAAAAAAAAAAAATT",
+        "TTAAAAAAAAAAAAAAAAAFFFDDDDDDDDDDDDFFFAAAAAAAAAAAAAAAAATT"
+      ]
+    }
   }
 }

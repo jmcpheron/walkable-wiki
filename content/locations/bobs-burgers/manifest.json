@@ -25,6 +25,11 @@
         "type": "conduit",
         "face": "right",
         "x": 1.5
+      },
+      {
+        "type": "dumpster",
+        "side": "back",
+        "x": 2.5
       }
     ],
     "facade": {
