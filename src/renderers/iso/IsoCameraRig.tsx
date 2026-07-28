@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
-import { useStore } from '../engine/store'
-import { streetExtent } from './layout'
+import { useStore } from '../../model/store'
+import { useIsoStore } from './isoStore'
+import { streetExtent } from '../../model/layout'
 
 // Classic tycoon camera: a fixed 45° yaw at 30° elevation (dimetric-ish — keeps
 // storefronts tall), orthographic projection, drag/arrow pan, wheel zoom. The one
@@ -63,7 +64,7 @@ export function IsoCameraRig() {
       const dy = e.clientY - drag.lastY
       drag.lastX = e.clientX
       drag.lastY = e.clientY
-      const zoom = useStore.getState().zoom
+      const zoom = useIsoStore.getState().zoom
       updateBasis()
       desired.current
         .addScaledVector(right.current, -dx / zoom)
@@ -72,11 +73,11 @@ export function IsoCameraRig() {
     const onPointerUp = (e: PointerEvent) => {
       if (dragging.current?.pointerId !== e.pointerId) return
       dragging.current = null
-      document.body.style.cursor = useStore.getState().hovered ? 'pointer' : ''
+      document.body.style.cursor = useIsoStore.getState().hovered ? 'pointer' : ''
     }
     const onWheel = (e: WheelEvent) => {
       e.preventDefault()
-      const s = useStore.getState()
+      const s = useIsoStore.getState()
       s.setZoom(Math.min(zoomMax, Math.max(zoomMin, s.zoom * Math.pow(0.999, e.deltaY))))
     }
     const onKey = (down: boolean) => (e: KeyboardEvent) => {
@@ -110,7 +111,7 @@ export function IsoCameraRig() {
   // pointer cursor over clickables (unless mid-drag)
   useEffect(
     () =>
-      useStore.subscribe((s, prev) => {
+      useIsoStore.subscribe((s, prev) => {
         if (s.hovered !== prev.hovered && !dragging.current) {
           document.body.style.cursor = s.hovered ? 'pointer' : ''
         }
@@ -124,7 +125,7 @@ export function IsoCameraRig() {
     const damp = 1 - Math.exp(-8 * delta)
 
     // smooth 180° swing when the view is flipped
-    const yawTarget = BASE_YAW + (store.viewFlipped ? Math.PI : 0)
+    const yawTarget = BASE_YAW + (useIsoStore.getState().viewFlipped ? Math.PI : 0)
     yaw.current += (yawTarget - yaw.current) * (1 - Math.exp(-5 * delta))
 
     // deep links / selection pan the camera here
@@ -152,7 +153,7 @@ export function IsoCameraRig() {
     const ortho = camera as THREE.OrthographicCamera
     ortho.position.copy(target.current).addScaledVector(camDir.current, CAMERA_DISTANCE)
     ortho.lookAt(target.current)
-    const zoomNow = THREE.MathUtils.lerp(ortho.zoom, store.zoom, damp)
+    const zoomNow = THREE.MathUtils.lerp(ortho.zoom, useIsoStore.getState().zoom, damp)
     if (Math.abs(zoomNow - ortho.zoom) > 0.001) {
       ortho.zoom = zoomNow
       ortho.updateProjectionMatrix()

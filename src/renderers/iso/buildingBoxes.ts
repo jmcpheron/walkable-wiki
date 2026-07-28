@@ -1,6 +1,7 @@
-import type { ExteriorDef, FacadeDef } from '../engine/manifest'
-import type { VoxelBox } from '../engine/voxel'
-import { styleBoxes, resolveColors } from './styles'
+import type { ExteriorDef, FacadeDef } from '../../model/manifest'
+import type { VoxelBox } from './voxel'
+import { resolveColors } from '../../model/colors'
+import { styleBoxes } from './styles'
 import { featureBoxes } from './features'
 
 // Manifest exterior → voxel box list. Three layers compose:

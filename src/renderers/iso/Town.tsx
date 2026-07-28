@@ -1,4 +1,4 @@
-import { street, locations } from '../engine/content'
+import { street, locations } from '../../model/content'
 import { Ground } from './Ground'
 import { Building } from './Building'
 import { Walkers } from './Walkers'

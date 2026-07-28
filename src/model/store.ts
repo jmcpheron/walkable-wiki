@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import type { WikiContent } from './manifest'
 import { characters, episodes, locations } from './content'
-import { doorstep } from '../world/layout'
+import { doorstep } from './layout'
 
 export type SelectionKind = 'location' | 'character' | 'episode'
 export type Selection = { kind: SelectionKind; slug: string } | null
@@ -20,22 +20,18 @@ export interface EpisodePlayback {
 interface WorldState {
   selection: Selection
   activeWiki: WikiContent | null
-  hovered: string | null // e.g. 'loc:bobs-burgers' / 'char:bob' — drives the cursor
-  zoom: number
-  focusRequest: { x: number; z: number; seq: number } | null // camera pans here when seq changes
+  // Semantic "attention goes here" intent (world x/z). Renderers that have a
+  // camera consume it; renderers without one ignore it.
+  focusRequest: { x: number; z: number; seq: number } | null
   episode: EpisodePlayback | null
-  noteText: string | null // current route-stop caption
+  noteText: string | null // current scene caption
   booted: boolean // boot overlay has been dismissed
-  viewFlipped: boolean // camera swung 180° to face the far side's storefronts
 
   select: (kind: SelectionKind, slug: string) => void
   clearSelection: () => void
   closeWiki: () => void
-  setHovered: (hovered: string | null) => void
-  setZoom: (zoom: number) => void
   requestFocus: (x: number, z: number) => void
   setBooted: () => void
-  toggleView: () => void
   playEpisode: (slug: string) => void
   stopEpisode: () => void
   _tickEpisode: (patch: Partial<EpisodePlayback>) => void
@@ -45,13 +41,10 @@ interface WorldState {
 export const useStore = create<WorldState>((set, get) => ({
   selection: null,
   activeWiki: null,
-  hovered: null,
-  zoom: 40,
   focusRequest: null,
   episode: null,
   noteText: null,
   booted: false,
-  viewFlipped: false,
 
   select: (kind, slug) => {
     if (kind === 'location') {
@@ -82,11 +75,8 @@ export const useStore = create<WorldState>((set, get) => ({
   // Closing the panel keeps an episode playing — you can watch the walk uncluttered.
   closeWiki: () => set({ activeWiki: null }),
 
-  setHovered: (hovered) => set({ hovered }),
-  setZoom: (zoom) => set({ zoom }),
   requestFocus: (x, z) => set({ focusRequest: { x, z, seq: (get().focusRequest?.seq ?? 0) + 1 } }),
   setBooted: () => set({ booted: true }),
-  toggleView: () => set({ viewFlipped: !get().viewFlipped }),
 
   playEpisode: (slug) =>
     set({

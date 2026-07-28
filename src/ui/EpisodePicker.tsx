@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { episodes } from '../engine/content'
-import { useStore } from '../engine/store'
+import { episodes } from '../model/content'
+import { useStore } from '../model/store'
 
 // Top-left "Episodes" menu: pick one to open its wiki entry and watch its route
 // play out on the map.

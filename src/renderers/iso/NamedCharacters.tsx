@@ -1,9 +1,10 @@
 import { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { characters, getPlacement } from '../engine/content'
-import { useStore } from '../engine/store'
+import { characters, getPlacement } from '../../model/content'
+import { useStore } from '../../model/store'
+import { useIsoStore } from './isoStore'
 import { BoxPerson, type PersonApi } from './BoxPerson'
-import { sidewalkLaneFor } from './layout'
+import { sidewalkLaneFor } from '../../model/layout'
 
 // Manifest-driven characters idling in front of their buildings — each one a
 // clickable wiki entry, exactly like a building. Position derives from the
@@ -23,7 +24,7 @@ function NamedCharacter({ slug }: { slug: string }) {
   const c = characters[slug]
   const api = useRef<PersonApi | null>(null)
   const select = useStore((s) => s.select)
-  const setHovered = useStore((s) => s.setHovered)
+  const setHovered = useIsoStore((s) => s.setHovered)
 
   const placement = getPlacement(c.at.location)
   const lane = sidewalkLaneFor(c.at.location)
@@ -53,7 +54,7 @@ function NamedCharacter({ slug }: { slug: string }) {
       }}
       onPointerOver={() => setHovered(`char:${slug}`)}
       onPointerOut={() => {
-        if (useStore.getState().hovered === `char:${slug}`) setHovered(null)
+        if (useIsoStore.getState().hovered === `char:${slug}`) setHovered(null)
       }}
     />
   )

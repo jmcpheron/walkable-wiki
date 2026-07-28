@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useStore } from '../engine/store'
+import { useStore } from '../model/store'
 
 // One quiet line of controls help, top-right, fading out after a few seconds.
 export function ControlsHint() {

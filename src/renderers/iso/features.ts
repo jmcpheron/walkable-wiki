@@ -1,5 +1,5 @@
-import type { ExteriorDef, FeatureDef, SchemeColors } from '../engine/manifest'
-import type { VoxelBox } from '../engine/voxel'
+import type { ExteriorDef, FeatureDef, SchemeColors } from '../../model/manifest'
+import type { VoxelBox } from './voxel'
 
 // Real-world detail elements at sub-voxel precision — conduit pipes are ~8cm,
 // railings ~5cm. Boxes take any fractional voxel size, so features are far finer

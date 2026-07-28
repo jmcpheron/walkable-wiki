@@ -1,5 +1,5 @@
 import { useEffect, type ReactNode } from 'react'
-import { useStore } from '../engine/store'
+import { useStore } from '../model/store'
 import { renderInline } from './markdownish'
 
 // The wiki layer: a plain DOM overlay (never inside the canvas) rendering the

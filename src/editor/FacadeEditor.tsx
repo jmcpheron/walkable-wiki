@@ -1,12 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import * as THREE from 'three'
-import { locations, schemes } from '../engine/content'
-import type { ExteriorDef, FacadeDef, FeatureDef } from '../engine/manifest'
-import { buildingStyle, exteriorDef, facadeDef } from '../engine/manifest'
-import { VOXEL, buildVoxelGeometry } from '../engine/voxel'
-import { buildingBoxes } from '../world/buildingBoxes'
-import { resolveColors } from '../world/styles'
+import { locations, schemes } from '../model/content'
+import type { ExteriorDef, FacadeDef, FeatureDef } from '../model/manifest'
+import { buildingStyle, exteriorDef, facadeDef } from '../model/manifest'
+import { VOXEL } from '../model/units'
+import { resolveColors } from '../model/colors'
+import { buildVoxelGeometry } from '../renderers/iso/voxel'
+import { buildingBoxes } from '../renderers/iso/buildingBoxes'
 
 // In-browser building editor, no server anywhere — the repo stays the backend.
 //  • Build tab: pick a neighborhood style + color scheme, stamp preset features

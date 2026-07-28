@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { episodes } from '../engine/content'
-import { useStore } from '../engine/store'
+import { episodes } from '../../model/content'
+import { useStore } from '../../model/store'
 import { BoxPerson, type PersonApi } from './BoxPerson'
-import { routePath } from './layout'
+import { routePath } from '../../model/layout'
 
 const WALK_SPEED = 2 // world units/sec
 const STOP_PAUSE = 1.8 // seconds idling at each stop

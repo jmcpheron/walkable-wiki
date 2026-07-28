@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { tips } from '../engine/content'
-import { useStore } from '../engine/store'
+import { tips } from '../model/content'
+import { useStore } from '../model/store'
 import { renderInline } from './markdownish'
 
 const MIN_HOLD_MS = 1600

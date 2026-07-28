@@ -2,11 +2,12 @@ import { useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { Text } from '@react-three/drei'
 import * as THREE from 'three'
-import type { LocationManifest } from '../engine/manifest'
-import { VOXEL, buildVoxelGeometry } from '../engine/voxel'
+import type { LocationManifest } from '../../model/manifest'
+import { VOXEL, buildVoxelGeometry } from './voxel'
 import { buildingBoxes } from './buildingBoxes'
-import { useStore } from '../engine/store'
-import { episodes } from '../engine/content'
+import { useStore } from '../../model/store'
+import { useIsoStore } from './isoStore'
+import { episodes } from '../../model/content'
 
 // One voxel building: a single merged geometry (one draw call), a drei Text sign,
 // and an invisible click-target box. The merged mesh never raycasts — the click box
@@ -29,7 +30,7 @@ export function Building({
   const [w, d, h] = exterior.size
 
   const select = useStore((s) => s.select)
-  const setHovered = useStore((s) => s.setHovered)
+  const setHovered = useIsoStore((s) => s.setHovered)
   const glow = useRef(0)
 
   // Highlight priority: episode route pulse > selected > hovered. Written straight
@@ -46,7 +47,7 @@ export function Building({
         ? 0.08
         : s.selection?.kind === 'location' && s.selection.slug === slug
           ? 0.14
-          : s.hovered === `loc:${slug}`
+          : useIsoStore.getState().hovered === `loc:${slug}`
             ? 0.08
             : 0
     glow.current += (target - glow.current) * 0.2
@@ -78,7 +79,7 @@ export function Building({
         }}
         onPointerOver={() => setHovered(`loc:${slug}`)}
         onPointerOut={() => {
-          if (useStore.getState().hovered === `loc:${slug}`) setHovered(null)
+          if (useIsoStore.getState().hovered === `loc:${slug}`) setHovered(null)
         }}
       >
         <boxGeometry args={[(w + 2) * VOXEL, h * VOXEL, (d + 2) * VOXEL]} />

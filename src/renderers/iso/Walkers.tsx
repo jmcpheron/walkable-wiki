@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { mulberry32 } from '../engine/rand'
+import { mulberry32 } from '../../model/rand'
 import { BoxPerson, type PersonApi, type PersonPalette } from './BoxPerson'
-import { FAR_SIDEWALK, NEAR_SIDEWALK, streetExtent } from './layout'
+import { FAR_SIDEWALK, NEAR_SIDEWALK, streetExtent } from '../../model/layout'
 
 // Ambient sidewalk life, RCT-style: a dozen box-people pacing the lanes with
 // seeded outfit/speed variety, occasional turnarounds, despawn past the street

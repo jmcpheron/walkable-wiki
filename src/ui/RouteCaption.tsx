@@ -1,4 +1,4 @@
-import { useStore } from '../engine/store'
+import { useStore } from '../model/store'
 import { renderInline } from './markdownish'
 
 // Bottom-center caption during episode playback: the current stop's note.

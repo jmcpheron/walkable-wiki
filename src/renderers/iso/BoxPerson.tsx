@@ -1,7 +1,7 @@
 import { forwardRef, useImperativeHandle, useMemo, useRef } from 'react'
 import * as THREE from 'three'
-import { getVoxelMaterial, unitBox } from '../engine/materials'
-import { VOXEL } from '../engine/voxel'
+import { getVoxelMaterial, unitBox } from './materials'
+import { VOXEL } from './voxel'
 
 // One procedural voxel person shared by ambient walkers, named characters, and the
 // episode courier. ~10 boxes: legs/torso/arms/head/hair(/hat). Owners drive pose

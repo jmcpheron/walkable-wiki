@@ -1,5 +1,5 @@
-import { getLocation, getPlacement, street } from '../engine/content'
-import { VOXEL } from '../engine/voxel'
+import { getLocation, getPlacement, street } from './content'
+import { VOXEL } from './units'
 
 // Single source of derived street geometry. Everything — ground strip, walker lanes,
 // character placement, episode routes, camera bounds — computes from street.json

@@ -1,10 +1,11 @@
 import * as THREE from 'three'
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js'
 
-// One voxel = 0.5 world units. "Voxel-ish" here means boxes snapped to the voxel
-// grid, not thousands of unit cubes: a wall is one box, a window is one thin box
-// sitting proud of it. A building is ~30-80 boxes, a person ~10.
-export const VOXEL = 0.5
+// "Voxel-ish" here means boxes snapped to the voxel grid, not thousands of unit
+// cubes: a wall is one box, a window is one thin box sitting proud of it. A
+// building is ~30-80 boxes, a person ~10.
+export { VOXEL } from '../../model/units'
+import { VOXEL } from '../../model/units'
 
 export interface VoxelBox {
   min: [number, number, number] // voxel coords, local, y up from ground

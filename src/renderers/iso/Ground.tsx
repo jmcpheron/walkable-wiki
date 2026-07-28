@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
 import * as THREE from 'three'
-import { VOXEL, buildVoxelGeometry, type VoxelBox } from '../engine/voxel'
-import { FAR_SIDEWALK, NEAR_SIDEWALK, ROAD, streetExtent } from './layout'
-import { useStore } from '../engine/store'
+import { VOXEL, buildVoxelGeometry, type VoxelBox } from './voxel'
+import { FAR_SIDEWALK, NEAR_SIDEWALK, ROAD, streetExtent } from '../../model/layout'
+import { useStore } from '../../model/store'
 
 const COLORS = {
   apron: '#9db27c', // scrubby coastal grass behind the building lines

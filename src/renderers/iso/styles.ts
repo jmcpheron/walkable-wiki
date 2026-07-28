@@ -1,20 +1,10 @@
-import type { BuildingStyle, ExteriorDef, SchemeColors } from '../engine/manifest'
-import { schemes } from '../engine/content'
-import type { VoxelBox } from '../engine/voxel'
+import type { BuildingStyle, ExteriorDef, SchemeColors } from '../../model/manifest'
+import type { VoxelBox } from './voxel'
 import { floorLines } from './features'
 
 // Neighborhood building styles: each generates roofline, story treatment, upper
 // windows, and the sign band from (size, colors). Ground floors are left mostly
 // blank — doorway/retail-window/awning features furnish them.
-
-export function resolveColors(exterior: ExteriorDef): SchemeColors {
-  const base = schemes[exterior.scheme]
-  const override = exterior.palette ?? {}
-  return {
-    ...base,
-    ...Object.fromEntries(Object.entries(override).filter(([, v]) => v !== undefined)),
-  } as SchemeColors
-}
 
 interface StyleOptions {
   frontDetails: boolean // false when a painted facade owns the front face
