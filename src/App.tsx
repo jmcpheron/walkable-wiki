@@ -2,7 +2,9 @@ import { useEffect } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { useStore } from './engine/store'
 import { hashFor, initialRouteFromHash, parseHash } from './engine/router'
+import { Town } from './world/Town'
 import { WikiPanel } from './ui/WikiPanel'
+import { ViewToggle } from './ui/ViewToggle'
 import { Disclaimer } from './ui/Disclaimer'
 
 export default function App() {
@@ -37,10 +39,13 @@ export default function App() {
 
   return (
     <>
-      <Canvas orthographic camera={{ zoom: 40, near: 0.1, far: 500 }}>
-        <color attach="background" args={['#bcd7e6']} />
+      <Canvas orthographic dpr={[1, 2]} camera={{ zoom: 40, near: 0.1, far: 500 }}>
+        {/* must be a direct Canvas child so it attaches to the scene, not a group */}
+        <color attach="background" args={['#a8d3e6']} />
+        <Town />
       </Canvas>
       <WikiPanel />
+      <ViewToggle />
       <Disclaimer />
     </>
   )

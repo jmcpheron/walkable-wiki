@@ -25,6 +25,7 @@ interface WorldState {
   episode: EpisodePlayback | null
   noteText: string | null // current route-stop caption
   booted: boolean // boot overlay has been dismissed
+  viewFlipped: boolean // camera swung 180° to face the far side's storefronts
 
   select: (kind: SelectionKind, slug: string) => void
   clearSelection: () => void
@@ -33,6 +34,7 @@ interface WorldState {
   setZoom: (zoom: number) => void
   requestFocus: (x: number, z: number) => void
   setBooted: () => void
+  toggleView: () => void
   playEpisode: (slug: string) => void
   stopEpisode: () => void
   _tickEpisode: (patch: Partial<EpisodePlayback>) => void
@@ -48,6 +50,7 @@ export const useStore = create<WorldState>((set, get) => ({
   episode: null,
   noteText: null,
   booted: false,
+  viewFlipped: false,
 
   select: (kind, slug) => {
     if (kind === 'location') {
@@ -82,6 +85,7 @@ export const useStore = create<WorldState>((set, get) => ({
   setZoom: (zoom) => set({ zoom }),
   requestFocus: (x, z) => set({ focusRequest: { x, z, seq: (get().focusRequest?.seq ?? 0) + 1 } }),
   setBooted: () => set({ booted: true }),
+  toggleView: () => set({ viewFlipped: !get().viewFlipped }),
 
   playEpisode: (slug) =>
     set({ episode: { slug, legIndex: 0, progress: 0, status: 'walking' }, noteText: null }),
