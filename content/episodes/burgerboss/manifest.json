@@ -1,0 +1,58 @@
+{
+  "slug": "burgerboss",
+  "title": "Burgerboss",
+  "wiki": {
+    "title": "Burgerboss (S2E4)",
+    "body": "Jimmy Pesto buys an old *BURGERBOSS* arcade cabinet and fills the high-score board with **BOB SUX**. Bob responds the only way he knows how: total obsession.\n\nWhat starts as a quick trip across the street becomes midnight practice sessions, a wrist brace, and a friendship with a group of adult arcade sharks.\n\n## Notes\n- The feud crosses Ocean Avenue more times than Bob crosses out high scores\n- Louise smells profit in Bob's downfall immediately\n- The wrist brace does not slow him down. Nothing slows him down"
+  },
+  "scenes": [
+    {
+      "title": "BOB SUX",
+      "location": "jimmy-pestos",
+      "note": "Jimmy Pesto's new arcade cabinet has a high-score list, and every entry reads **BOB SUX**.",
+      "characters": [
+        "bob",
+        "jimmy-pesto"
+      ]
+    },
+    {
+      "title": "Closing time obsession",
+      "location": "bobs-burgers",
+      "interior": "dining",
+      "note": "Back home, Bob practices wrist flicks on a spatula. Louise smells a business opportunity.",
+      "characters": [
+        "bob",
+        "louise"
+      ]
+    },
+    {
+      "title": "Rolls of quarters",
+      "location": "jimmy-pestos",
+      "note": "Bob returns on a school night with rolls of quarters. The leaderboard war begins.",
+      "characters": [
+        "bob",
+        "louise",
+        "jimmy-pesto"
+      ]
+    },
+    {
+      "title": "Carpal tunnel",
+      "location": "bobs-burgers",
+      "interior": "kitchen",
+      "note": "The grill suffers. The wrist brace goes on. Linda schedules an intervention.",
+      "characters": [
+        "bob",
+        "linda"
+      ]
+    },
+    {
+      "title": "One last token",
+      "location": "jimmy-pestos",
+      "note": "BOB SUX becomes BOBRULES. Sort of. Close enough.",
+      "characters": [
+        "bob",
+        "louise"
+      ]
+    }
+  ]
+}

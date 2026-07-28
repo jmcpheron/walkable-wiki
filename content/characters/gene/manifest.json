@@ -1,0 +1,24 @@
+{
+  "slug": "gene",
+  "name": "Gene Belcher",
+  "wiki": {
+    "title": "Gene Belcher",
+    "body": "The middle Belcher kid: eleven, loud, and never far from his keyboard's fart button.\n\n## Notes\n- Will trade almost anything for food\n- Composer of at least one burger-based musical\n- His Casio has a setting for every emotion"
+  },
+  "appearance": {
+    "palette": {
+      "skin": "#e8b98f",
+      "top": "#f5df4d",
+      "bottom": "#3b5aa6",
+      "hair": "#1d1b19"
+    },
+    "heightVoxels": 3.2
+  },
+  "at": {
+    "location": "bobs-burgers",
+    "offset": [
+      3.6,
+      1.3
+    ]
+  }
+}

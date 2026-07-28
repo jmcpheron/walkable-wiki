@@ -23,6 +23,9 @@ home next door).
   fire escapes, conduit, awnings) or hand-paint the facade grid (Paint tab, up to
   4 cells per voxel), with a live 3D preview — then copy the JSON into the
   location's manifest via PR
+- **📼 Retro theater** (`#/retro/<episode>`) — watch any episode as a late-80s
+  adventure-game vignette: pixel-art building elevations and character sprites
+  rendered from the *same* manifests as the voxel town
 
 ## Development
 
@@ -57,14 +60,21 @@ The world is data, not code — everything on screen is generated from JSON mani
 - `content/street.json` — where buildings sit on the street
 - `content/characters/<slug>/manifest.json` — a clickable character standing in
   front of a location
-- `content/episodes/<slug>/manifest.json` — an episode as an ordered route of
-  locations with per-stop notes
+- `content/episodes/<slug>/manifest.json` — an episode as ordered **scenes**
+  (plot points): location, note, cast, optional interior room. The voxel view
+  plays them as a group walk; the retro theater plays them as vignettes
+- locations may also carry semantic **interior** data (rooms, props like
+  counter/booths/the grill, door graphs) — surfaced in wiki panels today,
+  renderable by any future view
 - `content/tips.json` — the boot-screen tips
 
-All content is zod-validated at load (`src/engine/manifest.ts`) with cross-reference
-checks, so a bad manifest fails loudly. The renderer (`src/world/`) turns manifests
-into merged voxel geometry — adding a building, character, or episode requires zero
-engine changes. Deep links: `#/loc/<slug>`, `#/char/<slug>`, `#/ep/<slug>`.
+All content is zod-validated at load (`src/model/manifest.ts`) with cross-reference
+checks, so a bad manifest fails loudly. The **model layer** (`src/model/`) is
+renderer-agnostic — schemas, registries, street-layout semantics, appearances — and
+**renderers** (`src/renderers/`) present it: `iso/` is the voxel town, `vignette/`
+is the retro theater, and future styles (Sierra-style dioramas, free-roam 3D) slot
+in beside them without touching the data. Adding a building, character, or episode
+requires zero engine changes. Deep links: `#/loc/`, `#/char/`, `#/ep/`, `#/retro/`.
 
 Decisions are logged in `docs/` (`m1-notes.md` for the original first-person build —
 preserved at tag `v0.1-first-person` — and `pivot-isometric.md` for the current

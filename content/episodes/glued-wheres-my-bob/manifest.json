@@ -1,0 +1,56 @@
+{
+  "slug": "glued-wheres-my-bob",
+  "title": "Glued, Where's My Bob?",
+  "wiki": {
+    "title": "Glued, Where's My Bob? (S6E19)",
+    "body": "A kids' prank war escalates until Bob ends up **glued to the toilet** — on the morning a *Coasters* magazine writer is coming to profile the restaurant.\n\nWord gets out, the whole street shows up to help (and gawk), and the episode ends with one of the show's great speeches about family and burgers.\n\n## Notes\n- The town converging on one bathroom is peak Seymour's Bay\n- Teddy brings solvents. Teddy always brings solvents\n- Season 6 finale, and it ends exactly where the show lives: at Bob's"
+  },
+  "scenes": [
+    {
+      "title": "Stuck",
+      "location": "bobs-burgers",
+      "interior": "kitchen",
+      "note": "The prank war ends with Bob glued to the toilet, an hour before the magazine interview.",
+      "characters": [
+        "bob",
+        "linda",
+        "louise"
+      ]
+    },
+    {
+      "title": "Word travels",
+      "location": "jimmy-pestos",
+      "note": "News crosses Ocean Avenue at record speed. Jimmy Pesto is *delighted*.",
+      "characters": [
+        "jimmy-pesto"
+      ]
+    },
+    {
+      "title": "The town converges",
+      "location": "bobs-burgers",
+      "interior": "dining",
+      "note": "Half the street crowds the dining room with solvents, opinions, and zero helpful ideas.",
+      "characters": [
+        "bob",
+        "linda",
+        "tina",
+        "gene",
+        "louise",
+        "teddy"
+      ]
+    },
+    {
+      "title": "Free at last",
+      "location": "bobs-burgers",
+      "interior": "dining",
+      "note": "Unstuck, un-pantsed, and un-bothered: Bob gives the speech about the family and the burgers.",
+      "characters": [
+        "bob",
+        "linda",
+        "tina",
+        "gene",
+        "louise"
+      ]
+    }
+  ]
+}

@@ -65,6 +65,19 @@ walking characters — rather than a first-person walkable world.
   param inputs, live preview, exterior JSON export/import); the painter moved to
   the **Paint tab** with a one-way "double resolution" upscale.
 
+## Model/renderer abstraction (same arc, later)
+
+- `src/model/` is the renderer-agnostic world description: schemas, registries,
+  street-layout semantics, color/appearance resolution, app store, router.
+  `src/renderers/iso/` (voxel town) and `src/renderers/vignette/` (retro pixel
+  theater at `#/retro/<episode>`) both present it; boundary rules in
+  `src/renderers/README.md`.
+- Episodes became **scenes** (title/location/note/cast/interior room) played as a
+  cast group-walk in iso and as CRT vignettes in retro. Unknown cast slugs render
+  as seeded generics with a console warning.
+- Interiors exist as semantic room/prop data (Bob's authored), surfaced in wiki
+  panels; rendering them is a future renderer's job.
+
 ## Known debts / next
 
 - drei `<Text>` (troika) still fetches its font at runtime; bundle a font later.

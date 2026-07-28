@@ -1,0 +1,50 @@
+{
+  "slug": "full-bars",
+  "title": "Full Bars",
+  "wiki": {
+    "title": "Full Bars (S3E2)",
+    "body": "It's Halloween, and the Belcher kids ditch their usual route for **Kingshead Island** — the fabled neighborhood that hands out full-size candy bars.\n\nThe haul of a lifetime comes with a price: the local teens run a menacing prank gauntlet called Hell Hunt, and the kids have to trick-or-treat their way through it.\n\n## Notes\n- Tina goes as *Mommy Mummy*, Gene as Queen Latifah, Louise as 'Edward Scissorhands' (bunny ears intact)\n- Watch the kids work the whole block door to door on the map\n- Full-size bars change a person"
+  },
+  "scenes": [
+    {
+      "title": "Costumes assembled",
+      "location": "bobs-burgers",
+      "note": "Costumes on, pillowcases empty — the kids set out for the neighborhood of legend.",
+      "characters": [
+        "tina",
+        "gene",
+        "louise"
+      ]
+    },
+    {
+      "title": "First door",
+      "location": "its-your-funeral",
+      "note": "Mort's handing out toothbrushes. Noted. Remembered. Filed under revenge.",
+      "characters": [
+        "tina",
+        "gene",
+        "louise"
+      ]
+    },
+    {
+      "title": "Hell Hunt",
+      "location": "for-lease",
+      "note": "The empty storefront isn't empty — the Hell Hunt teens strike, and eggs are involved.",
+      "characters": [
+        "tina",
+        "gene",
+        "louise"
+      ]
+    },
+    {
+      "title": "Full bars",
+      "location": "jimmy-pestos",
+      "note": "Jackpot. **Full-size bars.** And a plan for payback that would make Louise's hat spin.",
+      "characters": [
+        "tina",
+        "gene",
+        "louise"
+      ]
+    }
+  ]
+}

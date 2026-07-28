@@ -1,0 +1,24 @@
+{
+  "slug": "tina",
+  "name": "Tina Belcher",
+  "wiki": {
+    "title": "Tina Belcher",
+    "body": "The eldest Belcher kid: thirteen, deadpan, and powered by an inner life of zombies, horses, and butts.\n\n## Notes\n- Author of an extensive erotic friend-fiction archive\n- Groans as a complete sentence\n- Unstoppable once she commits to a dance floor"
+  },
+  "appearance": {
+    "palette": {
+      "skin": "#e8b98f",
+      "top": "#8ecbe3",
+      "bottom": "#2b3a67",
+      "hair": "#1d1b19"
+    },
+    "heightVoxels": 3.4
+  },
+  "at": {
+    "location": "bobs-burgers",
+    "offset": [
+      -3.4,
+      0.5
+    ]
+  }
+}
