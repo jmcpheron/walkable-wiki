@@ -6,15 +6,44 @@
     "body": "The funeral home next door to Bob's Burgers, run by the Belchers' mild-mannered friend and neighbor **Mort**.\n\n## Notes\n- Source of the infamous 'human flesh burgers' rumor in the very first episode\n- Mort is a regular at Bob's counter\n- Site of the sleepover in **Weekend at Mort's**, after the Belchers' apartment gets fumigated"
   },
   "exterior": {
-    "size": [14, 12, 10],
-    "palette": {
-      "wall": "#6b7a8f",
-      "trim": "#c9d2dc",
-      "roof": "#414b57",
-      "door": "#2f3742",
-      "sign": "#dfe6ee",
-      "window": "#8fa7bb"
+    "size": [
+      14,
+      12,
+      10
+    ],
+    "style": "brick",
+    "scheme": "slate",
+    "signText": "IT'S YOUR FUNERAL",
+    "door": {
+      "offsetX": 0,
+      "width": 2
     },
-    "signText": "IT'S YOUR FUNERAL"
+    "features": [
+      {
+        "type": "doorway",
+        "x": 0,
+        "kind": "apartment"
+      },
+      {
+        "type": "retail-window",
+        "from": -5.5,
+        "to": -1.8
+      },
+      {
+        "type": "retail-window",
+        "from": 1.8,
+        "to": 5.5
+      },
+      {
+        "type": "fire-escape",
+        "x": 3.2,
+        "width": 4
+      },
+      {
+        "type": "conduit",
+        "face": "left",
+        "x": 1
+      }
+    ]
   }
 }

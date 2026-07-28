@@ -18,8 +18,11 @@ home next door).
 - **Click** — open a building's or character's wiki panel (Esc or × closes)
 - **⟲ Other side** — swing the camera 180° to face the far side's storefronts
 - **📺 Episodes** — play an episode as a route across the map
-- **🧱 Editor** (`#/editor`) — paint a building's front facade on a half-voxel grid
-  with a live 3D preview, then copy the JSON into the location's manifest via PR
+- **🧱 Editor** (`#/editor`) — compose a building from presets (Build tab: pick a
+  style + color scheme, stamp doorways, retail windows, Victorian bay windows,
+  fire escapes, conduit, awnings) or hand-paint the facade grid (Paint tab, up to
+  4 cells per voxel), with a live 3D preview — then copy the JSON into the
+  location's manifest via PR
 
 ## Development
 
@@ -42,11 +45,15 @@ workflow in `.github/workflows/deploy.yml`, and works on Vercel with zero config
 
 The world is data, not code — everything on screen is generated from JSON manifests:
 
-- `content/locations/<slug>/manifest.json` — a building: voxel size, palette,
-  awning/window/sign parameters, wiki text — plus an optional hand-painted
-  `facade`: ASCII-art rows at half-voxel resolution with a `char → {color, depth}`
-  legend (rows above the wall height shape the roofline; Bob's Victorian gable is
-  drawn this way). Facades are easiest to make in the in-browser editor.
+- `content/locations/<slug>/manifest.json` — a building: voxel size, a `style`
+  (victorian / brick / shopfront), a `scheme` name from `content/schemes.json`
+  (with optional per-color overrides), sign text, and a `features` list —
+  doorways, retail windows, bay windows, fire escapes, conduit, awnings — placed
+  in voxels from the front-face center at sub-voxel precision. An optional
+  hand-painted `facade` grid (2 or 4 cells per voxel; rows above the wall height
+  shape the roofline) can replace the style's front details for custom art.
+- `content/schemes.json` — named building color schemes (wall/trim/accent/glass/
+  door/roof/metal/sign)
 - `content/street.json` — where buildings sit on the street
 - `content/characters/<slug>/manifest.json` — a clickable character standing in
   front of a location

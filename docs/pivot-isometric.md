@@ -51,6 +51,20 @@ walking characters — rather than a first-person walkable world.
 - Street order corrected to canon: funeral home left of Bob's, the perpetually
   for-lease gag storefront right, Jimmy Pesto's directly across.
 
+## Style/scheme/feature system (added after the facade grids)
+
+- Buildings are now composed from three layers: a **style** (victorian / brick /
+  shopfront — shell, roofline, story windows, sign band), a named **color scheme**
+  from `content/schemes.json` (+ inline overrides), and **features** — typed preset
+  elements (doorway, retail-window, bay-window, fire-escape, conduit, awning)
+  emitted at sub-voxel precision (pipes ~8 cm, railings ~5 cm). This supersedes the
+  old windows/awning parametrics; the painted `facade` grid remains as the
+  advanced custom-art layer (now with an optional 4-cells-per-voxel resolution)
+  and overrides the style's front details when present.
+- The editor gained a **Build tab** (style + scheme pickers, feature list with
+  param inputs, live preview, exterior JSON export/import); the painter moved to
+  the **Paint tab** with a one-way "double resolution" upscale.
+
 ## Known debts / next
 
 - drei `<Text>` (troika) still fetches its font at runtime; bundle a font later.

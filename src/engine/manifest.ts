@@ -13,16 +13,75 @@ export type WikiContent = z.infer<typeof wikiContent>
 
 // ── Locations ────────────────────────────────────────────────────────────────
 
-export const buildingPalette = z.object({
+// Named color schemes live in content/schemes.json; a manifest picks one by name
+// and may override individual colors inline.
+export const schemeColors = z.object({
   wall: z.string(),
   trim: z.string(),
-  roof: z.string(),
+  accent: z.string(),
+  glass: z.string(),
   door: z.string(),
+  roof: z.string(),
+  metal: z.string(), // fire escapes, conduit, gratings
   sign: z.string(),
-  window: z.string().default('#9fc3d9'),
-  awning: z.string().optional(),
 })
-export type BuildingPalette = z.infer<typeof buildingPalette>
+export type SchemeColors = z.infer<typeof schemeColors>
+
+export const paletteOverride = z.object({
+  wall: z.string().optional(),
+  trim: z.string().optional(),
+  accent: z.string().optional(),
+  glass: z.string().optional(),
+  door: z.string().optional(),
+  roof: z.string().optional(),
+  metal: z.string().optional(),
+  sign: z.string().optional(),
+})
+export type PaletteOverride = z.infer<typeof paletteOverride>
+
+// Real-world detail elements, stamped onto a building at sub-voxel precision.
+// Positions are in voxels from the front-face center (x) unless noted.
+export const featureDef = z.discriminatedUnion('type', [
+  // Victorian box window protruding from an upper floor
+  z.object({
+    type: z.literal('bay-window'),
+    x: z.number(),
+    floor: z.number().int().min(1).default(1),
+    width: z.number().min(3).default(5),
+  }),
+  // zigzag platforms + railings + drop ladder on the facade
+  z.object({
+    type: z.literal('fire-escape'),
+    x: z.number(),
+    width: z.number().min(2.5).default(4),
+  }),
+  // electrical conduit run with a junction box
+  z.object({
+    type: z.literal('conduit'),
+    face: z.enum(['front', 'left', 'right']).default('right'),
+    x: z.number().default(0), // along width for front, along depth for sides
+  }),
+  z.object({
+    type: z.literal('doorway'),
+    x: z.number(),
+    kind: z.enum(['shop', 'apartment']).default('shop'),
+  }),
+  // big ground-floor display window with bulkhead + sill
+  z.object({
+    type: z.literal('retail-window'),
+    from: z.number(),
+    to: z.number(),
+  }),
+  z.object({
+    type: z.literal('awning'),
+    from: z.number(),
+    to: z.number(),
+  }),
+])
+export type FeatureDef = z.infer<typeof featureDef>
+
+export const buildingStyle = z.enum(['victorian', 'brick', 'shopfront'])
+export type BuildingStyle = z.infer<typeof buildingStyle>
 
 // Hand-painted front facade at HALF-voxel resolution (2 cells per voxel).
 // rows are top-to-bottom strings, drawn as seen from the street; legend maps each
@@ -31,6 +90,8 @@ export type BuildingPalette = z.infer<typeof buildingPalette>
 // with cells form the shaped roofline (gables, parapets).
 export const facadeDef = z
   .object({
+    // cells per voxel: 2 (default, 0.25m cells) or 4 (0.125m cells for fine detail)
+    resolution: z.union([z.literal(2), z.literal(4)]).default(2),
     legend: z.record(
       z.string(),
       z.object({
@@ -57,19 +118,20 @@ export type FacadeDef = z.infer<typeof facadeDef>
 export const exteriorDef = z.object({
   // [width, depth, height] in voxels (1 voxel = 0.5 world units)
   size: z.tuple([z.number().int().min(4), z.number().int().min(4), z.number().int().min(6)]),
-  palette: buildingPalette,
+  // Neighborhood style: generates shell, roofline, story windows, sign band.
+  style: buildingStyle.default('shopfront'),
+  scheme: z.string().default('plaster'), // name from content/schemes.json
+  palette: paletteOverride.optional(), // per-color overrides on top of the scheme
   signText: z.string().optional(), // defaults to the location name
   signY: z.number().optional(), // sign-text height in voxels (default 5.5)
-  windows: z.object({ rows: z.number().int().min(0), cols: z.number().int().min(0) }).optional(),
-  awning: z.boolean().default(false),
-  // When present, replaces ALL parametric front-face features (windows, door
-  // slab, sign band, awning) with the hand-painted grid. Structure (shell,
-  // roof, sides) stays parametric; door.offsetX still drives doorstep layout.
+  features: z.array(featureDef).default([]),
+  // Hand-painted front grid (advanced): replaces the style's front-face details;
+  // structure and features still apply. door.offsetX always drives doorstep layout.
   facade: facadeDef.optional(),
   door: z
     .object({
-      offsetX: z.number().int().default(0), // voxels from front-face center
-      width: z.number().int().min(1).default(2),
+      offsetX: z.number().default(0), // voxels from front-face center
+      width: z.number().min(1).default(2),
     })
     .prefault({}),
 })

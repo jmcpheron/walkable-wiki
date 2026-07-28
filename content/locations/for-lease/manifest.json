@@ -6,15 +6,39 @@
     "body": "The cursed storefront on the other side of Bob's Burgers, perpetually **FOR LEASE**.\n\n## The gag\nEvery episode's opening credits shows a different doomed business setting up shop here — pest control, yarn stores, crematorium supply outlets — before it inevitably fails and the sign goes back up.\n\n## Notes\n- Blink-and-you-miss-it store names are one of the show's longest-running jokes\n- Nothing survives here. Nothing."
   },
   "exterior": {
-    "size": [10, 10, 10],
-    "palette": {
-      "wall": "#c9bfa8",
-      "trim": "#8f8677",
-      "roof": "#7d7466",
-      "door": "#6e6354",
-      "sign": "#ddd6c4",
-      "window": "#a9b8bd"
+    "size": [
+      10,
+      10,
+      10
+    ],
+    "style": "shopfront",
+    "scheme": "dust",
+    "signText": "FOR LEASE",
+    "door": {
+      "offsetX": 1.8,
+      "width": 2
     },
-    "signText": "FOR LEASE"
+    "features": [
+      {
+        "type": "doorway",
+        "x": 1.8,
+        "kind": "shop"
+      },
+      {
+        "type": "retail-window",
+        "from": -4.2,
+        "to": 0.4
+      },
+      {
+        "type": "fire-escape",
+        "x": -2,
+        "width": 3.5
+      },
+      {
+        "type": "conduit",
+        "face": "right",
+        "x": 0
+      }
+    ]
   }
 }

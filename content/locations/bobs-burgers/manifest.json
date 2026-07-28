@@ -6,63 +6,56 @@
     "body": "The Belcher family's burger restaurant on Ocean Avenue, with the family's apartment upstairs — that second door on the left is the stairs up to it.\n\n## The Burger of the Day\nThe chalkboard pun burger changes constantly and is almost always better than business is. Bob takes it more seriously than nearly anything else.\n\n## Notes\n- It's Your Funeral Home & Crematorium is next door on one side; the perpetually doomed for-lease storefront is on the other\n- Directly across the street from Jimmy Pesto's Pizzeria, to Bob's eternal irritation\n- The grand re-re-re-opening happened in the very first episode"
   },
   "exterior": {
-    "size": [12, 10, 12],
-    "palette": {
-      "wall": "#a9b489",
-      "trim": "#f0e6c8",
-      "roof": "#8a4f42",
-      "door": "#5d3a2e",
-      "sign": "#f5efdc",
-      "window": "#bcd9e8",
-      "awning": "#3e7d5a"
-    },
+    "size": [
+      12,
+      10,
+      12
+    ],
+    "style": "victorian",
+    "scheme": "seafoam",
     "signText": "BOB'S BURGERS",
-    "signY": 6.5,
-    "facade": {
-      "legend": {
-        "G": { "color": "#a9b489", "depth": 0 },
-        "C": { "color": "#f0e6c8", "depth": 2 },
-        "T": { "color": "#f0e6c8", "depth": 1 },
-        "w": { "color": "#bcd9e8", "depth": 0 },
-        "B": { "color": "#f5efdc", "depth": 1 },
-        "A": { "color": "#3e7d5a", "depth": 3 },
-        "S": { "color": "#2e6e4e", "depth": 1 },
-        "d": { "color": "#9cc3d6", "depth": 0 },
-        "D": { "color": "#2e5d46", "depth": 0 },
-        "b": { "color": "#4a5745", "depth": 0 }
+    "signY": 5.2,
+    "door": {
+      "offsetX": 0,
+      "width": 2
+    },
+    "features": [
+      {
+        "type": "doorway",
+        "x": 0,
+        "kind": "shop"
       },
-      "rows": [
-        "          CCCC          ",
-        "        CCGGGGCC        ",
-        "      CCGGGGGGGGCC      ",
-        "    CCGGGGGGGGGGGGCC    ",
-        "  CCGGGGGGGGGGGGGGGGCC  ",
-        "CCCCCCCCCCCCCCCCCCCCCCCC",
-        "GGGGGGGGGGGGGGGGGGGGGGGG",
-        "GGGTTTTGGGTTTTGGGTTTTGGG",
-        "GGGwwwwGGGwwwwGGGwwwwGGG",
-        "GGGwwwwGGGwwwwGGGwwwwGGG",
-        "GGGwwwwGGGwwwwGGGwwwwGGG",
-        "GGGwwwwGGGwwwwGGGwwwwGGG",
-        "GGGwwwwGGGwwwwGGGwwwwGGG",
-        "GGGTTTTGGGTTTTGGGTTTTGGG",
-        "GGGGGGGGGGGGGGGGGGGGGGGG",
-        "CCCCCCCCCCCCCCCCCCCCCCCC",
-        "BBBBBBBBBBBBBBBBBBBBBBBB",
-        "BBBBBBBBBBBBBBBBBBBBBBBB",
-        "AAAAAAAAAAAAAAAAAAAAAAAA",
-        "SSSSSSSSSSSSSSSSSSSSSSSS",
-        "SSDDDSwwwwddddwwwwwwwwSS",
-        "SSDDDSwwwwddddwwwwwwwwSS",
-        "SSDDDSwwwwddddwwwwwwwwSS",
-        "SSDDDSwwwwddddwwwwwwwwSS",
-        "SSDDDSwwwwddddwwwwwwwwSS",
-        "SSDDDSwwwwddddwwwwwwwwSS",
-        "SSDDDSbbbbddddbbbbbbbbSS",
-        "SSDDDSbbbbddddbbbbbbbbSS",
-        "bbDDDbbbbbddddbbbbbbbbbb",
-        "bbDDDbbbbbddddbbbbbbbbbb"
-      ]
-    }
+      {
+        "type": "doorway",
+        "x": -4.8,
+        "kind": "apartment"
+      },
+      {
+        "type": "retail-window",
+        "from": -3.3,
+        "to": -1.6
+      },
+      {
+        "type": "retail-window",
+        "from": 1.6,
+        "to": 5.3
+      },
+      {
+        "type": "awning",
+        "from": -5.6,
+        "to": 5.6
+      },
+      {
+        "type": "bay-window",
+        "x": 0,
+        "floor": 1,
+        "width": 5
+      },
+      {
+        "type": "conduit",
+        "face": "right",
+        "x": 1.5
+      }
+    ]
   }
 }

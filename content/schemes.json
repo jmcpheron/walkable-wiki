@@ -1,0 +1,10 @@
+{
+  "plaster": { "wall": "#c9bfa8", "trim": "#8f8677", "accent": "#7d7466", "glass": "#a9b8bd", "door": "#6e6354", "roof": "#7d7466", "metal": "#3f434a", "sign": "#ddd6c4" },
+  "seafoam": { "wall": "#a9b489", "trim": "#f0e6c8", "accent": "#3e7d5a", "glass": "#bcd9e8", "door": "#2e5d46", "roof": "#8a4f42", "metal": "#41454b", "sign": "#f5efdc" },
+  "slate": { "wall": "#6b7a8f", "trim": "#c9d2dc", "accent": "#414b57", "glass": "#8fa7bb", "door": "#2f3742", "roof": "#414b57", "metal": "#33373d", "sign": "#dfe6ee" },
+  "pesto": { "wall": "#b03a48", "trim": "#f0ede4", "accent": "#2e6e4e", "glass": "#9fc3d9", "door": "#4a3327", "roof": "#6e2a34", "metal": "#3a3d42", "sign": "#ffffff" },
+  "dust": { "wall": "#c2b89f", "trim": "#9a9080", "accent": "#8f8677", "glass": "#a9b8bd", "door": "#6e6354", "roof": "#7d7466", "metal": "#4a4e54", "sign": "#ddd6c4" },
+  "brick-red": { "wall": "#9a5243", "trim": "#e8dcc4", "accent": "#5f3a31", "glass": "#a9c4d4", "door": "#3f2f28", "roof": "#5f3a31", "metal": "#3a3d42", "sign": "#e8dcc4" },
+  "mint": { "wall": "#9dc4b1", "trim": "#f4efe0", "accent": "#4f8f75", "glass": "#bcd9e8", "door": "#3c6e58", "roof": "#6e8f80", "metal": "#41454b", "sign": "#f4efe0" },
+  "mustard": { "wall": "#c9a24b", "trim": "#f0e6c8", "accent": "#8f6b2d", "glass": "#b8d8e8", "door": "#5c4520", "roof": "#8f6b2d", "metal": "#3a3d42", "sign": "#f5efdc" }
+}

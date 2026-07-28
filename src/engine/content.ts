@@ -3,13 +3,16 @@ import {
   characterManifest,
   episodeManifest,
   locationManifest,
+  schemeColors,
   streetRegistry,
   type CharacterManifest,
   type EpisodeManifest,
   type LocationManifest,
+  type SchemeColors,
 } from './manifest'
 import streetJson from '../../content/street.json'
 import tipsJson from '../../content/tips.json'
+import schemesJson from '../../content/schemes.json'
 
 // All content is bundled at build time via glob imports — no fetches, no absolute
 // paths, so the build stays GitHub Pages subpath-safe by construction. zod .parse()
@@ -52,6 +55,11 @@ export const episodes = loadRegistry<EpisodeManifest>(
 
 export const street = streetRegistry.parse(streetJson)
 
+// Named building color schemes — content, not code.
+export const schemes: Record<string, SchemeColors> = z
+  .record(z.string(), schemeColors)
+  .parse(schemesJson)
+
 // Loading/boot-screen tips (markdown-ish inline **bold** allowed) — content, not code.
 export const tips = z.array(z.string().min(1)).parse(tipsJson)
 
@@ -59,6 +67,11 @@ export const tips = z.array(z.string().min(1)).parse(tipsJson)
 
 for (const p of street.placements) {
   if (!locations[p.slug]) throw new Error(`street.json places unknown location "${p.slug}"`)
+}
+for (const loc of Object.values(locations)) {
+  if (!schemes[loc.exterior.scheme]) {
+    throw new Error(`Location "${loc.slug}" uses unknown color scheme "${loc.exterior.scheme}"`)
+  }
 }
 for (const c of Object.values(characters)) {
   if (!street.placements.some((p) => p.slug === c.at.location)) {

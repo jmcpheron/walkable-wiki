@@ -1,0 +1,154 @@
+import type { ExteriorDef, FeatureDef, SchemeColors } from '../engine/manifest'
+import type { VoxelBox } from '../engine/voxel'
+
+// Real-world detail elements at sub-voxel precision — conduit pipes are ~8cm,
+// railings ~5cm. Boxes take any fractional voxel size, so features are far finer
+// than the paintable grid. All positions in voxels; front face sits at z = d/2.
+
+// Upper-floor baselines for a building of height h (ground floor is 0..~6.5).
+export function floorLines(h: number): number[] {
+  const lines: number[] = []
+  for (let y = 6.5; y <= h - 3; y += 3.5) lines.push(y)
+  return lines
+}
+
+export function featureBoxes(
+  feature: FeatureDef,
+  exterior: ExteriorDef,
+  colors: SchemeColors
+): VoxelBox[] {
+  const [w, d, h] = exterior.size
+  const FZ = d / 2
+  const boxes: VoxelBox[] = []
+
+  switch (feature.type) {
+    case 'retail-window': {
+      const { from, to } = feature
+      const width = to - from
+      if (width <= 0.8) break
+      boxes.push({ min: [from, 0, FZ], size: [width, 1.1, 0.3], color: colors.accent }) // bulkhead
+      boxes.push({ min: [from - 0.2, 1.05, FZ], size: [width + 0.4, 0.25, 0.55], color: colors.trim }) // sill
+      boxes.push({ min: [from, 1.3, FZ], size: [width, 3.1, 0.25], color: colors.glass })
+      boxes.push({ min: [from - 0.2, 4.4, FZ], size: [width + 0.4, 0.3, 0.4], color: colors.trim }) // head
+      // mullions every ~2.4 voxels
+      for (let x = from + 2.4; x < to - 0.3; x += 2.4) {
+        boxes.push({ min: [x - 0.06, 1.3, FZ + 0.05], size: [0.12, 3.1, 0.28], color: colors.trim })
+      }
+      break
+    }
+
+    case 'doorway': {
+      const { x, kind } = feature
+      const width = kind === 'shop' ? 2.4 : 1.8
+      const left = x - width / 2
+      // frame
+      boxes.push({ min: [left - 0.3, 0, FZ], size: [0.3, 4.9, 0.4], color: colors.trim })
+      boxes.push({ min: [left + width, 0, FZ], size: [0.3, 4.9, 0.4], color: colors.trim })
+      boxes.push({ min: [left - 0.3, 4.9, FZ], size: [width + 0.6, 0.35, 0.45], color: colors.trim })
+      if (kind === 'shop') {
+        boxes.push({ min: [left, 0.05, FZ], size: [width, 4, 0.28], color: colors.glass }) // glass door
+        boxes.push({ min: [left + width / 2 - 0.05, 0.05, FZ + 0.15], size: [0.1, 4, 0.2], color: colors.metal }) // stile
+        boxes.push({ min: [left, 0.05, FZ + 0.1], size: [width, 0.7, 0.25], color: colors.metal }) // kick plate
+        boxes.push({ min: [left, 4.15, FZ], size: [width, 0.75, 0.26], color: colors.glass }) // transom
+      } else {
+        boxes.push({ min: [left, 0.05, FZ], size: [width, 4.4, 0.3], color: colors.door })
+        boxes.push({ min: [left + width / 2 - 0.4, 2.7, FZ + 0.15], size: [0.8, 0.8, 0.22], color: colors.glass }) // peep window
+        boxes.push({ min: [left + width - 0.35, 2.1, FZ + 0.2], size: [0.12, 0.35, 0.16], color: colors.metal }) // handle
+      }
+      boxes.push({ min: [left - 0.4, 0, FZ + 0.4], size: [width + 0.8, 0.22, 0.9], color: colors.trim }) // step
+      break
+    }
+
+    case 'awning': {
+      const { from, to } = feature
+      let stripe = 0
+      for (let x = from; x < to; x += 2, stripe++) {
+        const seg = Math.min(2, to - x)
+        const color = stripe % 2 === 0 ? colors.accent : colors.trim
+        boxes.push({ min: [x, 4.15, FZ + 0.25], size: [seg, 0.45, 1], color })
+        boxes.push({ min: [x, 3.8, FZ + 1.25], size: [seg, 0.45, 1], color })
+      }
+      break
+    }
+
+    case 'bay-window': {
+      const { x, floor, width } = feature
+      const yBase = floorLines(h)[floor - 1] ?? 6.5
+      const top = yBase + 3
+      const left = x - width / 2
+      boxes.push({ min: [left - 0.2, yBase, FZ], size: [width + 0.4, 0.35, 1.7], color: colors.trim }) // base slab
+      boxes.push({ min: [left + 0.3, yBase - 0.6, FZ], size: [0.35, 0.6, 0.9], color: colors.trim }) // brackets
+      boxes.push({ min: [left + width - 0.65, yBase - 0.6, FZ], size: [0.35, 0.6, 0.9], color: colors.trim })
+      boxes.push({ min: [left, yBase + 0.35, FZ], size: [width, top - yBase - 0.35, 1.5], color: colors.wall }) // body
+      boxes.push({ min: [left + 0.7, yBase + 0.7, FZ + 1.5], size: [width - 1.4, 2, 0.12], color: colors.glass }) // front glass
+      boxes.push({ min: [left + 0.15, yBase + 0.7, FZ + 0.35], size: [0.12, 2, 1], color: colors.glass }) // side glass
+      boxes.push({ min: [left + width - 0.27, yBase + 0.7, FZ + 0.35], size: [0.12, 2, 1], color: colors.glass })
+      boxes.push({ min: [left - 0.3, top, FZ], size: [width + 0.6, 0.4, 1.9], color: colors.trim }) // cap roof
+      break
+    }
+
+    case 'fire-escape': {
+      const { x, width } = feature
+      const left = x - width / 2
+      const lines = floorLines(h)
+      const OUT = 1.5 // platform depth off the wall
+      for (const y of lines) {
+        // platform grate + frame
+        boxes.push({ min: [left, y, FZ], size: [width, 0.12, OUT], color: colors.metal })
+        boxes.push({ min: [left, y - 0.15, FZ + OUT - 0.15], size: [width, 0.15, 0.15], color: colors.metal })
+        // railing: posts + top/mid rails on the outer edge and sides
+        for (const px of [left, left + width / 2 - 0.04, left + width - 0.08]) {
+          boxes.push({ min: [px, y, FZ + OUT - 0.08], size: [0.08, 1.5, 0.08], color: colors.metal })
+        }
+        boxes.push({ min: [left, y + 1.42, FZ + OUT - 0.08], size: [width, 0.08, 0.08], color: colors.metal })
+        boxes.push({ min: [left, y + 0.75, FZ + OUT - 0.08], size: [width, 0.06, 0.06], color: colors.metal })
+        // side rails back to the wall
+        boxes.push({ min: [left, y + 1.42, FZ], size: [0.08, 0.08, OUT], color: colors.metal })
+        boxes.push({ min: [left + width - 0.08, y + 1.42, FZ], size: [0.08, 0.08, OUT], color: colors.metal })
+      }
+      // stepped stair run between floors (or up from the first platform)
+      for (let i = 0; i < lines.length; i++) {
+        const yLow = i === 0 ? lines[0] : lines[i - 1]
+        const yHigh = i === 0 ? lines[0] : lines[i]
+        if (i > 0 && yHigh - yLow > 0.1) {
+          const steps = 7
+          for (let s = 0; s < steps; s++) {
+            boxes.push({
+              min: [left + 0.3 + (s * (width - 1.6)) / steps, yLow + ((s + 1) * (yHigh - yLow)) / (steps + 1), FZ + 0.35],
+              size: [0.55, 0.09, 0.8],
+              color: colors.metal,
+            })
+          }
+        }
+      }
+      // drop ladder below the lowest platform
+      const yFirst = lines[0] ?? 6.5
+      for (const lx of [left + width / 2 - 0.7, left + width / 2 + 0.55]) {
+        boxes.push({ min: [lx, yFirst - 3, FZ + OUT - 0.4], size: [0.1, 3, 0.1], color: colors.metal })
+      }
+      for (let ry = yFirst - 2.7; ry < yFirst - 0.2; ry += 0.6) {
+        boxes.push({ min: [left + width / 2 - 0.6, ry, FZ + OUT - 0.38], size: [1.2, 0.09, 0.09], color: colors.metal })
+      }
+      break
+    }
+
+    case 'conduit': {
+      const { face, x } = feature
+      const PIPE = 0.16
+      if (face === 'front') {
+        boxes.push({ min: [x - PIPE / 2, 0, FZ + 0.1], size: [PIPE, h - 0.4, PIPE], color: colors.metal })
+        boxes.push({ min: [x - 0.4, 2.4, FZ + 0.08], size: [0.8, 1.1, 0.3], color: colors.metal }) // junction box
+        boxes.push({ min: [x - 0.28, h - 0.6, FZ + 0.06], size: [0.56, 0.5, 0.24], color: colors.metal }) // weatherhead
+      } else {
+        const side = face === 'left' ? -1 : 1
+        const wx = side === 1 ? w / 2 + 0.08 : -w / 2 - 0.08 - PIPE
+        boxes.push({ min: [wx, 0, x - PIPE / 2], size: [PIPE, h - 0.4, PIPE], color: colors.metal })
+        boxes.push({ min: [side === 1 ? w / 2 + 0.04 : -w / 2 - 0.34, 2.4, x - 0.4], size: [0.3, 1.1, 0.8], color: colors.metal })
+        boxes.push({ min: [side === 1 ? w / 2 + 0.02 : -w / 2 - 0.26, h - 0.6, x - 0.28], size: [0.24, 0.5, 0.56], color: colors.metal })
+      }
+      break
+    }
+  }
+
+  return boxes
+}
