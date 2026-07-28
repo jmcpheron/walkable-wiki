@@ -8,8 +8,8 @@ export type Selection = { kind: SelectionKind; slug: string } | null
 
 export interface EpisodePlayback {
   slug: string
-  runId: number // increments per playback so a replay remounts the courier fresh
-  legIndex: number // which route stop the courier is heading to (or paused at)
+  runId: number // increments per playback so a replay remounts the party fresh
+  sceneIndex: number // which scene the party is heading to (or dwelling at)
   progress: number // 0..1 within the current leg, for observability/tests
   status: 'walking' | 'paused' | 'done'
 }
@@ -64,7 +64,7 @@ export const useStore = create<WorldState>((set, get) => ({
       if (!ep) return
       set({ selection: { kind, slug }, activeWiki: ep.wiki })
       get().playEpisode(slug)
-      const start = doorstep(ep.route[0].location)
+      const start = doorstep(ep.scenes[0].location)
       get().requestFocus(start.x, start.z)
     }
   },
@@ -83,7 +83,7 @@ export const useStore = create<WorldState>((set, get) => ({
       episode: {
         slug,
         runId: (get().episode?.runId ?? 0) + 1,
-        legIndex: 0,
+        sceneIndex: 0,
         progress: 0,
         status: 'walking',
       },

@@ -144,11 +144,43 @@ export const exteriorDef = z.object({
 })
 export type ExteriorDef = z.infer<typeof exteriorDef>
 
+// ── Interiors (semantic room data — renderer-agnostic, not yet rendered) ─────
+
+export const propType = z.enum([
+  'counter', 'stool', 'booth', 'table', 'chair', 'stove', 'fridge', 'freezer',
+  'sink', 'shelf', 'register', 'chalkboard', 'door', 'window', 'stairs',
+  'casket', 'urn-display', 'toilet', 'plant', 'misc',
+])
+export type PropType = z.infer<typeof propType>
+
+export const propDef = z.object({
+  type: propType,
+  at: z.tuple([z.number(), z.number()]), // [x, z] voxels from the room's SW corner
+  size: z.tuple([z.number(), z.number()]).optional(),
+  rotation: z.number().optional(), // degrees
+  count: z.number().int().min(1).optional(), // repeats: 6 stools, 3 booths
+  label: z.string().optional(), // "the grill", "Burger of the Day"
+})
+export type PropDef = z.infer<typeof propDef>
+
+export const roomDef = z.object({
+  id: z.string(),
+  name: z.string(),
+  size: z.tuple([z.number(), z.number()]), // [w, d] voxels
+  props: z.array(propDef).default([]),
+  doors: z.array(z.object({ to: z.string() })).default([]), // 'street' or a sibling room id
+})
+export type RoomDef = z.infer<typeof roomDef>
+
+export const interiorDef = z.object({ rooms: z.array(roomDef).min(1) })
+export type InteriorDef = z.infer<typeof interiorDef>
+
 export const locationManifest = z.object({
   slug: z.string(),
   name: z.string(),
   wiki: wikiContent,
   exterior: exteriorDef,
+  interior: interiorDef.optional(),
 })
 export type LocationManifest = z.infer<typeof locationManifest>
 
@@ -188,18 +220,22 @@ export type CharacterManifest = z.infer<typeof characterManifest>
 
 // ── Episodes ─────────────────────────────────────────────────────────────────
 
+// One plot beat of an episode: where it happens, who's there, what to say.
+// Consecutive scenes at different locations become a walk; same location twice
+// in a row is a "dwell" (the story advances without moving).
+export const sceneDef = z.object({
+  title: z.string().optional(),
+  location: z.string(),
+  note: z.string().optional(), // caption shown on arrival (markdown-ish inline)
+  characters: z.array(z.string()).default([]), // character slugs; unknown slugs render generic
+  interior: z.string().optional(), // room id within the location (informational)
+})
+export type SceneDef = z.infer<typeof sceneDef>
+
 export const episodeManifest = z.object({
   slug: z.string(),
   title: z.string(),
   wiki: wikiContent,
-  // Ordered stops; playback walks a courier from stop to stop along the sidewalks.
-  route: z
-    .array(
-      z.object({
-        location: z.string(),
-        note: z.string().optional(), // caption shown on arrival (markdown-ish inline)
-      })
-    )
-    .min(2),
+  scenes: z.array(sceneDef).min(2),
 })
 export type EpisodeManifest = z.infer<typeof episodeManifest>

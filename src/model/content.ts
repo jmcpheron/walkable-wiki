@@ -79,9 +79,20 @@ for (const c of Object.values(characters)) {
   }
 }
 for (const e of Object.values(episodes)) {
-  for (const stop of e.route) {
-    if (!street.placements.some((p) => p.slug === stop.location)) {
-      throw new Error(`Episode "${e.slug}" routes through "${stop.location}", which is not placed on the street`)
+  for (const [i, scene] of e.scenes.entries()) {
+    if (!street.placements.some((p) => p.slug === scene.location)) {
+      throw new Error(`Episode "${e.slug}" scene ${i + 1} is at "${scene.location}", which is not placed on the street`)
+    }
+    for (const slug of scene.characters) {
+      if (!characters[slug]) {
+        console.warn(`[content] episode "${e.slug}" scene ${i + 1} casts unknown character "${slug}" — rendering generic`)
+      }
+    }
+    if (scene.interior) {
+      const rooms = locations[scene.location]?.interior?.rooms
+      if (!rooms?.some((r) => r.id === scene.interior)) {
+        console.warn(`[content] episode "${e.slug}" scene ${i + 1} references unknown room "${scene.interior}" in "${scene.location}"`)
+      }
     }
   }
 }

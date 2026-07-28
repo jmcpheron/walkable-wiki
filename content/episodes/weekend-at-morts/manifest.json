@@ -3,10 +3,20 @@
   "title": "Weekend at Mort's",
   "wiki": {
     "title": "Weekend at Mort's (S1E11)",
-    "body": "When the health inspector finds mold in the walls, the restaurant gets fumigated and the whole Belcher family moves in next door with **Mort** for the weekend.\n\n## The route\nA very short commute: out the front door of Bob's Burgers and straight into the funeral home next door.\n\n## Notes\n- Bob and Linda get a rare date night; it derails spectacularly\n- The kids discover the crematory, with predictable results\n- Follow the walker on the map to trace the episode"
+    "body": "When the health inspector finds mold in the walls, the restaurant gets fumigated and the whole Belcher family moves in next door with **Mort** for the weekend.\n\n## The route\nA very short commute: out the front door of Bob's Burgers and straight into the funeral home next door.\n\n## Notes\n- Bob and Linda get a rare date night; it derails spectacularly\n- The kids discover the crematory, with predictable results\n- Follow the walkers on the map to trace the episode"
   },
-  "route": [
-    { "location": "bobs-burgers", "note": "Mold in the walls — everybody out for fumigation." },
-    { "location": "its-your-funeral", "note": "The Belchers move in with Mort for the weekend." }
+  "scenes": [
+    {
+      "title": "Fumigation day",
+      "location": "bobs-burgers",
+      "note": "Mold in the walls — everybody out for fumigation.",
+      "characters": ["bob", "linda", "louise"]
+    },
+    {
+      "title": "Moving in with Mort",
+      "location": "its-your-funeral",
+      "note": "The Belchers move in with Mort for the weekend.",
+      "characters": ["bob", "linda", "louise"]
+    }
   ]
 }

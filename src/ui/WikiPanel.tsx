@@ -1,5 +1,8 @@
 import { useEffect, type ReactNode } from 'react'
 import { useStore } from '../model/store'
+import { episodes, locations } from '../model/content'
+import { castAppearance } from '../model/appearance'
+import { describeRoom } from '../model/describe'
 import { renderInline } from './markdownish'
 
 // The wiki layer: a plain DOM overlay (never inside the canvas) rendering the
@@ -7,6 +10,7 @@ import { renderInline } from './markdownish'
 // paragraphs, "## " headings, "- " lists, **bold** — a real renderer can land in M2.
 export function WikiPanel() {
   const wiki = useStore((s) => s.activeWiki)
+  const selection = useStore((s) => s.selection)
   const closeWiki = useStore((s) => s.closeWiki)
 
   useEffect(() => {
@@ -28,9 +32,58 @@ export function WikiPanel() {
           ×
         </button>
       </div>
-      <div className="wiki-panel-body">{renderBody(wiki.body)}</div>
+      <div className="wiki-panel-body">
+        {renderBody(wiki.body)}
+        {selection?.kind === 'episode' && <EpisodeScenes slug={selection.slug} />}
+        {selection?.kind === 'location' && <InsideSection slug={selection.slug} />}
+      </div>
       <p className="wiki-panel-hint">Esc or × to close</p>
     </div>
+  )
+}
+
+// Generated from the episode's scene data — the same plot points every renderer plays.
+function EpisodeScenes({ slug }: { slug: string }) {
+  const scenes = episodes[slug]?.scenes
+  if (!scenes) return null
+  return (
+    <>
+      <h3>Scenes</h3>
+      <ol className="wiki-scenes">
+        {scenes.map((scene, i) => (
+          <li key={i}>
+            {scene.title ? <strong>{scene.title}</strong> : null}
+            {scene.title ? ' — ' : ''}
+            {locations[scene.location]?.name ?? scene.location}
+            {scene.characters.length > 0 && (
+              <span className="wiki-scene-cast">
+                {' '}
+                ({scene.characters.map((c) => castAppearance(c).name).join(', ')})
+              </span>
+            )}
+          </li>
+        ))}
+      </ol>
+    </>
+  )
+}
+
+// Generated from the location's semantic interior data.
+function InsideSection({ slug }: { slug: string }) {
+  const interior = locations[slug]?.interior
+  if (!interior) return null
+  return (
+    <>
+      <h3>Inside</h3>
+      <ul>
+        {interior.rooms.map((room) => (
+          <li key={room.id}>
+            <strong>{room.name}</strong>
+            {describeRoom(room) ? ` — ${describeRoom(room)}` : ''}
+          </li>
+        ))}
+      </ul>
+    </>
   )
 }
 

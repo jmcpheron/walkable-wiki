@@ -38,9 +38,7 @@ export function Building({
   useFrame(({ clock }) => {
     const s = useStore.getState()
     const onRoute =
-      s.episode &&
-      (s.episode.status === 'done' || s.episode.legIndex >= 0) &&
-      routeIncludes(s.episode.slug, s.episode.legIndex, s.episode.status, slug)
+      s.episode && routeIncludes(s.episode.slug, s.episode.sceneIndex, s.episode.status, slug)
     const target = onRoute === 'current'
       ? 0.22 * (0.5 + 0.5 * Math.sin(clock.elapsedTime * 4))
       : onRoute === 'visited'
@@ -96,16 +94,15 @@ function signFontSize(text: string, widthVoxels: number): number {
 
 function routeIncludes(
   episodeSlug: string,
-  legIndex: number,
+  sceneIndex: number,
   status: string,
   slug: string
 ): 'current' | 'visited' | false {
-  const route = episodes[episodeSlug]?.route
-  if (!route) return false
-  const currentIndex = route.findIndex((stop, i) => stop.location === slug && i === legIndex)
-  if (status !== 'done' && currentIndex !== -1) return 'current'
-  const anyIndex = route.findIndex((stop) => stop.location === slug)
+  const scenes = episodes[episodeSlug]?.scenes
+  if (!scenes) return false
+  if (status !== 'done' && scenes[sceneIndex]?.location === slug) return 'current'
+  const anyIndex = scenes.findIndex((scene) => scene.location === slug)
   if (anyIndex === -1) return false
   if (status === 'done') return 'visited'
-  return anyIndex < legIndex ? 'visited' : false
+  return anyIndex < sceneIndex ? 'visited' : false
 }
